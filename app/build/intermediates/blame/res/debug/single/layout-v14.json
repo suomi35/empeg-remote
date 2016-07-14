@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\layout-v14\\md_stub_progress.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.afollestad.material-dialogs\\core\\0.8.5.9\\res\\layout-v14\\md_stub_progress.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\layout-v14\\md_stub_progress_indeterminate.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.afollestad.material-dialogs\\core\\0.8.5.9\\res\\layout-v14\\md_stub_progress_indeterminate.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\layout-v14\\md_stub_progress_indeterminate_horizontal.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.afollestad.material-dialogs\\core\\0.8.5.9\\res\\layout-v14\\md_stub_progress_indeterminate_horizontal.xml"
+    }
+]

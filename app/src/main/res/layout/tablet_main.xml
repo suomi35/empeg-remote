@@ -1,0 +1,536 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:panel="http://schemas.android.com/apk/res/com.chasinglemons.empeg"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <View
+        android:id="@+id/tabletDivider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/RemoteRoot"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@id/tabletDivider"
+        android:background="@drawable/remote_back"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:id="@+id/vfdFrame"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/display_frame" >
+
+            <ImageView
+                android:id="@+id/blitScreen"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="empeg screen"
+                android:padding="8dp" />
+        </FrameLayout>
+
+        <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vfdFrame"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="2"
+        android:fillViewport="true" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:id="@+id/remote_a1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_a1" />
+
+                        <ImageView
+                            android:id="@+id/remote_a2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_a2" />
+
+                        <ImageView
+                            android:id="@+id/remote_a3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_a3" />
+
+                        <ImageView
+                            android:id="@+id/remote_a4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_a4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:id="@+id/remote_b1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_b1" />
+
+                        <ImageView
+                            android:id="@+id/remote_b2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_b2" />
+
+                        <ImageView
+                            android:id="@+id/remote_b3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_b3" />
+
+                        <ImageView
+                            android:id="@+id/remote_b4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_b4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:id="@+id/remote_c1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_c1" />
+
+                        <ImageView
+                            android:id="@+id/remote_c2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_c2" />
+
+                        <ImageView
+                            android:id="@+id/remote_c3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_c3" />
+
+                        <ImageView
+                            android:id="@+id/remote_c4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_c4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:id="@+id/remote_d1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_d1" />
+
+                        <ImageView
+                            android:id="@+id/remote_d2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_d2" />
+
+                        <ImageView
+                            android:id="@+id/remote_d3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_d3" />
+
+                        <ImageView
+                            android:id="@+id/remote_d4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_d4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="6dp"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:id="@+id/remote_e1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_e1" />
+
+                        <ImageView
+                            android:id="@+id/remote_e2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_e2" />
+
+                        <ImageView
+                            android:id="@+id/remote_e3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_e3" />
+
+                        <ImageView
+                            android:id="@+id/remote_e4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_e4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3" >
+
+                        <ImageView
+                            android:id="@+id/remote_f1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_f1" />
+
+                        <ImageView
+                            android:id="@+id/remote_f2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_f2" />
+
+                        <ImageView
+                            android:id="@+id/remote_f3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_f3" />
+
+                        <ImageView
+                            android:id="@+id/remote_f4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_f4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/row_g"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="3"
+                        android:visibility="gone" >
+
+                        <ImageView
+                            android:id="@+id/remote_g1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button"
+                            android:onClick="buttonPress"
+                            android:src="@drawable/button_g1" />
+
+                        <ImageView
+                            android:id="@+id/remote_g2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button" />
+
+                        <ImageView
+                            android:id="@+id/remote_g3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button" />
+
+                        <ImageView
+                            android:id="@+id/remote_g4"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:contentDescription="button" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/PlaylistRoot"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_alignLeft="@id/tabletDivider"
+        android:layout_alignParentRight="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/List_Back"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="#FF000000"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/up_seperator"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#33B5E5"
+                android:contentDescription="separator" />
+
+            <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="2dp"
+            android:orientation="horizontal" >
+            
+            <Button
+            android:id="@+id/button_pl_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/home"
+            android:drawablePadding="3dp"
+            android:text="home" />
+            <Button
+            android:id="@+id/button_pl_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableLeft="@drawable/arrow_up"
+            android:drawablePadding="3dp"
+            android:text="up" />
+        </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/List_Scroller"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/List_Back"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical" >
+
+            <ListView
+                android:id="@android:id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/blue_progressbar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/blue_sync"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/red_progressbar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/red_sync"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/yellow_progressbar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/yellow_sync"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/green_progressbar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/green_sync"
+            android:visibility="gone" />
+
+        <ProgressBar
+            android:id="@+id/white_progressbar"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/white_sync"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/List_Not_Found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/lnf_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/not_found"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Button
+                android:id="@+id/button_refresher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:text="Retry" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <com.chasinglemons.empeg.KeyboardPanel
+        android:id="@+id/kbdPanel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        panel:animationDuration="353"
+        panel:closedHandle="@drawable/kbd_tablg"
+        panel:content="@+id/panelContent"
+        panel:handle="@+id/panelHandle"
+        panel:linearFlying="true"
+        panel:openedHandle="@drawable/kbd_tablg"
+        panel:position="bottom"
+        panel:weight="36%p" >
+
+        <Button
+            android:id="@+id/panelHandle"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:layout_gravity="left" />
+
+        <LinearLayout
+            android:id="@+id/panelContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#999999"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <com.chasinglemons.empeg.CustomKeyboardView
+                android:id="@+id/keyboard_view"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom" >
+            </com.chasinglemons.empeg.CustomKeyboardView>
+        </LinearLayout>
+    </com.chasinglemons.empeg.KeyboardPanel>
+
+</RelativeLayout>

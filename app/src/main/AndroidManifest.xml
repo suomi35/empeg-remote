@@ -1,0 +1,67 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.chasinglemons.empeg"
+    android:versionCode="7"
+    android:versionName="1.96.00hj" >
+
+    <uses-sdk
+        android:minSdkVersion="13"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="com.android.vending.CHECK_LICENSE" />
+
+    <application
+        android:name=".GlobalData"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".Start"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".PhoneMain"
+            android:label="@string/app_name"
+            android:theme="@style/ShortenActionbar"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".TabletMain"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name=".WidgetShowcase"
+            android:label="Empeg widgets"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".Settings"
+            android:label="Settings" >
+        </activity>
+        <activity
+            android:name=".AddEmpeg"
+            android:icon="@drawable/player"
+            android:label="Choose player" >
+        </activity>
+        <activity
+            android:name=".LicensePopUp"
+            android:icon="@drawable/player"
+            android:label="Invalid License"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        
+        <service android:name="NotificationService"></service>
+        <receiver android:name="NotificationService$NotifButtonListener" />
+
+    </application>
+
+</manifest>

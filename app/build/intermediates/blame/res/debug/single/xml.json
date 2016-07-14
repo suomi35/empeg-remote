@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\xml\\settings.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\xml\\settings.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\xml\\keyboard.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\xml\\keyboard.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\xml\\appwidget_info.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\xml\\appwidget_info.xml"
+    }
+]

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialNumberPicker"><attr format="integer" name="npMinValue"/><attr format="integer" name="npMaxValue"/><attr format="integer" name="npDefaultValue"/><attr format="dimension" name="npTextSize"/><attr format="color" name="npTextColor"/><attr format="color" name="npSeparatorColor"/><attr format="color" name="npBackgroundColor"/><attr format="boolean" name="npFocusValue"/><attr format="boolean" name="npWrapValue"/></declare-styleable>
+</resources>

@@ -1,0 +1,498 @@
+[
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_clear_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_clear_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\play_pause.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\play_pause.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quickaction_slider_btn_normal.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\quickaction_slider_btn_normal.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\home.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\home.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_000.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c4sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c4sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c3sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c3sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c2sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c2sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_moreoverflow_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_menu_moreoverflow_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d2.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d2.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_g1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_g1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_star_black_36dp.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quickaction_slider_grip_right.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\quickaction_slider_grip_right.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quickaction_slider_btn.xml",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\quickaction_slider_btn.xml"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d3.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d3.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quickaction_slider_grip_left.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\quickaction_slider_grip_left.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_menu_refresh.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\ic_menu_refresh.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\pause_on.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\pause_on.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b4.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b4.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_share_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f3sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f3sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e4.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e4.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_left.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\icon_left.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b2.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b2.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e3.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e3.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b2sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b2sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_rating_star_off_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_rating_star_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_pressed_holo_dark.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d4.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d4.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quickaction_slider_btn_selected.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\quickaction_slider_btn_selected.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\next.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\next.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c4.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c4.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\quickaction_slider_btn_pressed.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\quickaction_slider_btn_pressed.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f2sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f2sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_radio_to_on_mtrl_000.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d4sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d4sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\md_nav_back.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.afollestad.material-dialogs\\core\\0.8.5.9\\res\\drawable-hdpi-v4\\md_nav_back.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_star_half_black_16dp.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a2.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a2.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\sym_keyboard_return.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\sym_keyboard_return.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a4sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a4sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f4.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f4.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\more.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\more.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a2sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a2sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a3sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a3sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_star_black_16dp.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_star_black_16dp.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f3.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f3.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c3.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c3.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_down.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\icon_down.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\pl_play_o.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\pl_play_o.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_c2.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_c2.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_right.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\icon_right.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_star_half_black_48dp.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\24.0.0\\res\\drawable-hdpi-v4\\abc_ic_star_half_black_48dp.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f2.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f2.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e2sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e2sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d3sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d3sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e4sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e4sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\pl_play.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\pl_play.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\pause_off.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\pause_off.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b3sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b3sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d1sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d1sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b4sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b4sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\arrow_up.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\arrow_up.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a4.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a4.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e2.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e2.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_a3.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_a3.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\sym_keyboard_delete.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\sym_keyboard_delete.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_up.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\icon_up.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_g1.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_g1.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\previous.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\previous.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_popup_background_mtrl_mult.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_popup_background_mtrl_mult.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_f4sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_f4sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_light.9.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_b3.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_b3.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_search_api_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_star_half_black_36dp.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_ic_star_half_black_36dp.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_e3sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_e3sm.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-hdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\AndroidStudio\\EmpegRemote\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\button_d2sm.png",
+        "source": "C:\\AndroidStudio\\EmpegRemote\\app\\src\\main\\res\\drawable-hdpi\\button_d2sm.png"
+    }
+]

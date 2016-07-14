@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:chasinglemonsseek="http://com.chasinglemons.empeg"
+    xmlns:chasinglemons="http://schemas.android.com/apk/res/com.chasinglemons.empeg"
+    android:title="Preferences" >
+
+    <PreferenceCategory
+        android:key="generalCategory"
+        android:title="General" >
+        <CheckBoxPreference
+            android:defaultValue="1"
+            android:key="doNotifications"
+            android:summary="Keep the app in the notification area for quick access/control"
+            android:title="Persistent notification" >
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="1"
+            android:key="doVibrate"
+            android:summary="Vibrate when buttons are touched"
+            android:title="Vibrate on touch" >
+        </CheckBoxPreference>
+        <ListPreference
+            android:defaultValue="0"
+            android:entries="@array/swipeNames"
+            android:entryValues="@array/swipeValues"
+            android:key="swipeAction"
+            android:summary="Swipe between remote/playlists or use gestures on the remote to send quick commands to the player"
+            android:title="Swipe action" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="remoteCategory"
+        android:title="Remote" >
+        <com.chasinglemons.empeg.ImageListPreference
+            android:entries="@array/lensNames"
+            android:entryValues="@array/lensValues"
+            android:key="activeLens"
+            android:summary="Choose the lens color for your Empeg"
+            android:title="Lens color"
+            chasinglemons:lensImages="@array/lensImages" />
+
+        <CheckBoxPreference
+            android:defaultValue="1"
+            android:key="showScreen"
+            android:summary="The Empeg VFD is visible on the remote"
+            android:title="Show display" >
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="1"
+            android:dependency="showScreen"
+            android:key="doScreenUpdate"
+            android:summary="The Empeg VFD is streamed to the app"
+            android:title="Live display" >
+        </CheckBoxPreference>
+
+        <ListPreference
+            android:defaultValue="1000"
+            android:entries="@array/refreshNames"
+            android:entryValues="@array/refreshValues"
+            android:key="refreshRate"
+            android:dependency="doScreenUpdate"
+            android:summary="Choose how often the screen refreshes"
+            android:title="Screen refresh rate" />
+        <CheckBoxPreference
+            android:defaultValue="0"
+            android:key="showHijack"
+            android:summary="A button for Hijack is present on the remote"
+            android:title="Show Hijack button" >
+        </CheckBoxPreference>
+        <CheckBoxPreference
+            android:defaultValue="1"
+            android:key="showKeyboard"
+            android:summary="A soft keyboard tab will appear in the lower left corner of the remote for use with searching"
+            android:title="Show soft keyboard tab" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="plistCategory"
+        android:title="Playlists" >
+<!--         <CheckBoxPreference
+            android:defaultValue="1"
+            android:key="showStreaming"
+            android:summary="A streaming button is present on the context menu (Requires an m3u-compatible player on the device e.g. ServeStream to play content)"
+            android:title="Show streaming button" >
+        </CheckBoxPreference> -->
+        <CheckBoxPreference
+            android:defaultValue="0"
+            android:key="pixelFont"
+            android:summary="Emulate Empeg&apos;s font for playlists"
+            android:title="Use pixel font" >
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="discoveryCategory"
+        android:title="Discovery" >
+        <com.chasinglemons.empeg.SeekBarPreference
+            android:defaultValue="2"
+            android:key="discoveryTimeout"
+            android:max="20"
+            android:summary="Adjusts the timeout\nvalue in seconds to wait for\nEmpeg replies on the network"
+            android:title="Discovery timeout"
+            chasinglemonsseek:min="1"
+            chasinglemonsseek:units="sec" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
