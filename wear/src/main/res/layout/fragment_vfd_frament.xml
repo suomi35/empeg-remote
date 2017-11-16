@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/empeg_vfd"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/vfd_background" />
+
+    <TextView
+        android:id="@+id/vfd_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center_horizontal"
+        android:textColor="#A0CEFE"
+        tools:text="Status" />
+
+    <com.chasinglemons.empeg.CustomTextView
+        android:id="@+id/vfd_track_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vfd_status"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        android:gravity="left"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="#A0CEFE"
+        android:textSize="22sp"
+        tools:text="Track" />
+
+    <com.chasinglemons.empeg.CustomTextView
+        android:id="@+id/vfd_artist_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/vfd_track_name"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:freezesText="true"
+        android:gravity="left"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:singleLine="true"
+        android:textColor="#A0CEFE"
+        android:textSize="16sp"
+        tools:text="Artist" />
+</RelativeLayout>

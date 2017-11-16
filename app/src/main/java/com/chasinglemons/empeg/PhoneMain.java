@@ -53,11 +53,20 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
+import com.google.android.gms.wearable.Wearable;
+
 import biz.kasual.materialnumberpicker.MaterialNumberPicker;
 
 public class PhoneMain extends FragmentActivity implements ActionBar.TabListener,
         SharedPreferences.OnSharedPreferenceChangeListener {
 
+    private static final String START_ACTIVITY = "/start_activity";
+    private static final String WEAR_MESSAGE_PATH = "/message";
     protected static final int ADD_IP_REQUEST_CODE = 100;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private String playerIP;
@@ -229,6 +238,7 @@ public class PhoneMain extends FragmentActivity implements ActionBar.TabListener
 
         //		//Log.i("PAGER_ACTIVITY","config.getInt(\"displayedTab\",1) = "+config.getInt("displayedTab",1));
         cPager.setCurrentItem(config.getInt("displayedTab", 0));
+
     }
 
     @Override

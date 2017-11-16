@@ -52,15 +52,18 @@
             android:icon="@drawable/player"
             android:label="Choose player" >
         </activity>
-        <activity
-            android:name=".LicensePopUp"
-            android:icon="@drawable/player"
-            android:label="Invalid License"
-            android:theme="@android:style/Theme.Dialog" >
-        </activity>
+
+        <service android:name=".WearMessageListenerService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
         
         <service android:name="NotificationService"></service>
         <receiver android:name="NotificationService$NotifButtonListener" />
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
     </application>
 

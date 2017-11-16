@@ -1,5 +1,7 @@
 package com.chasinglemons.empeg;
 
-public class WidgetShowcase {
+import android.app.Activity;
+
+public class WidgetShowcase extends Activity {
 
 }

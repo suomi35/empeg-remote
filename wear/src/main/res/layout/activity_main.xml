@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.wearable.view.GridViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:keepScreenOn="true" />
+
+    <android.support.wearable.view.DotsPageIndicator
+        android:id="@+id/page_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom" />
+
+</FrameLayout>
+<!--<RelativeLayout-->
+        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:tools="http://schemas.android.com/tools"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/button_up"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@null"-->
+        <!--android:src="@drawable/button_dpad_top"/>-->
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/button_left"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@id/button_up"-->
+            <!--android:background="@null"-->
+            <!--android:src="@drawable/button_dpad_left"/>-->
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/button_right"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/button_up"-->
+        <!--android:layout_toRightOf="@id/button_left"-->
+        <!--android:background="@null"-->
+        <!--android:src="@drawable/button_dpad_right"/>-->
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/button_down"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/button_left"-->
+        <!--android:background="@null"-->
+        <!--android:src="@drawable/button_dpad_bottom"/>-->
+        <!--</RelativeLayout>-->
