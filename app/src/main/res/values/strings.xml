@@ -1,0 +1,83 @@
+<resources>
+
+    <string name="app_name">Empeg Remote</string>
+    <string name="action_playlists">Playlists</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_widgets">Widgets</string>
+    <string name="action_discovery">Discovery</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="title_section1">Remote</string>
+    <string name="title_section2">Playlists</string>
+    <string name="button_text_enqueue">enqueue</string>
+    <string name="button_text_insert">insert</string>
+    <string name="button_text_play">play</string>
+    <string name="button_text_append">append</string>
+    <string name="button_desc_up">go to previous directory</string>
+    <string name="not_found">Empeg is unreachable</string>
+    <string name="contentdesc4pic1">Content</string>
+
+    <string-array name="lensNames">
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+        <item>""</item>
+    </string-array>
+    <string-array name="lensValues">
+        <item>"0"</item>
+        <item>"1"</item>
+        <item>"2"</item>
+        <item>"3"</item>
+        <item>"4"</item>
+    </string-array>
+
+    <array name="lensImages">
+        <item>@drawable/lens0_preview</item>
+        <item>@drawable/lens1_preview</item>
+        <item>@drawable/lens2_preview</item>
+        <item>@drawable/lens3_preview</item>
+        <item>@drawable/lens4_preview</item>
+    </array>
+    
+    <string-array name="refreshNames">
+        <item>"65 milliseconds"</item>
+        <item>"75 milliseconds"</item>
+        <item>"85 milliseconds"</item>
+        <item>"100 milliseconds"</item>
+        <item>"125 milliseconds"</item>
+        <item>"250 milliseconds"</item>
+        <item>"500 milliseconds"</item>
+        <item>"1 second"</item>
+        <item>"2 seconds"</item>
+        <item>"5 seconds"</item>
+    </string-array>
+    <string-array name="refreshValues">
+        <item>65</item>
+        <item>75</item>
+        <item>85</item>
+        <item>100</item>
+        <item>125</item>
+        <item>250</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
+        <item>5000</item>
+    </string-array>
+    
+    <string-array name="swipeNames">
+        <item>"Remote/playlists"</item>
+        <item>"Remote gestures"</item>
+    </string-array>
+    <string-array name="swipeValues">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <!-- BEGIN LICENSING -->
+    <!-- Unlicensed dialog messages -->
+    <string name="unlicensed_dialog_body">This application is not licensed. Please purchase it from Google Play.</string>
+    <string name="buy_button">Purchase</string>
+    <string name="quit_button">Exit</string>
+    <!-- END LICENSING -->
+
+</resources>

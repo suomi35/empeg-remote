@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pl_llayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:background="#353535"
+    android:paddingTop="10dp" >
+
+    <ImageView
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:focusable="false"
+        android:onClick="playHandler"
+        android:src="@drawable/pl_play" >
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/pl_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#FFF"
+        android:layout_weight="1"
+        android:textIsSelectable="false"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/more_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:focusable="false"
+        android:onClick="plEditHandler"
+        android:src="@drawable/more" >
+
+    </ImageView>
+
+    
+</RelativeLayout>
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pl_llayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#353535"
+    android:orientation="horizontal"
+    android:paddingBottom="10dp"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:paddingTop="10dp" >
+
+    <ImageView
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:focusable="false"
+        android:onClick="playHandler"
+        android:src="@drawable/plplay_button" >
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/pl_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
+        android:textColor="#FFF"
+        android:textIsSelectable="false"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/more_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_marginLeft="8dp"
+        android:focusable="false"
+        android:contentDescription="enqueue, append, insert button"
+        android:onClick="plEditHandler"
+        android:src="@drawable/more" >
+
+    </ImageView>
+
+</LinearLayout>

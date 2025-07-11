@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/Header"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="top"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/Footer"
+            android:layout_centerHorizontal="true"
+            android:text="Manual IP entry" />
+
+        <LinearLayout
+            android:id="@+id/Footer"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/manual_ip_entry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:nextFocusLeft="@id/manual_ip_entry"
+                android:nextFocusUp="@id/manual_ip_entry" >
+            </EditText>
+
+            <Button
+                android:id="@+id/manual_ip_button"
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ok" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/Header"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp"
+        android:background="#DDD" />
+
+    <LinearLayout
+        android:id="@+id/List_Scroller"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/empeg_list"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Discovered players" />
+
+        <ListView
+            android:id="@+id/empeg_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </LinearLayout>
+
+     <ProgressBar
+        android:id="@+id/blue_progressbar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/blue_sync"
+        android:visibility="gone" />
+    <ProgressBar
+        android:id="@+id/red_progressbar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/red_sync"
+        android:visibility="gone" />
+    <ProgressBar
+        android:id="@+id/yellow_progressbar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/yellow_sync"
+        android:visibility="gone" />
+    <ProgressBar
+        android:id="@+id/green_progressbar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/green_sync"
+        android:visibility="gone" />
+    <ProgressBar
+        android:id="@+id/white_progressbar"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_centerInParent="true"
+        android:indeterminate="true"
+        android:indeterminateDrawable="@drawable/white_sync"
+        android:visibility="gone" />
+
+</RelativeLayout>

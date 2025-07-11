@@ -1,0 +1,24 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/syncro"
+    android:oneshot="false" >
+
+    <item
+        android:drawable="@drawable/yellow_sync1"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/yellow_sync2"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/yellow_sync3"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/yellow_sync4"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/yellow_sync5"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/yellow_sync6"
+        android:duration="100"/>
+
+</animation-list>
