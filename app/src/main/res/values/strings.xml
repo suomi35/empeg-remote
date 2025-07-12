@@ -14,7 +14,15 @@
     <string name="button_text_append">append</string>
     <string name="button_desc_up">go to previous directory</string>
     <string name="not_found">Empeg is unreachable</string>
-    <string name="contentdesc4pic1">Content</string>
+
+    <string name="discovery_title">Choose Player</string>
+
+    <string name="discovery_ip_address_placeholder">IP address</string>
+    <string name="discovery_ip_address_ok">OK</string>
+
+    <string name="description_empeg_remote_icon">Empeg remote icon</string>
+    <string name="description_empeg_discovery_icon">Search for empegs icon</string>
+    <string name="description_show_settings_icon">Show settings icon</string>
 
     <string-array name="lensNames">
         <item>""</item>
@@ -38,7 +46,7 @@
         <item>@drawable/lens3_preview</item>
         <item>@drawable/lens4_preview</item>
     </array>
-    
+
     <string-array name="refreshNames">
         <item>"65 milliseconds"</item>
         <item>"75 milliseconds"</item>
@@ -63,7 +71,7 @@
         <item>2000</item>
         <item>5000</item>
     </string-array>
-    
+
     <string-array name="swipeNames">
         <item>"Remote/playlists"</item>
         <item>"Remote gestures"</item>
@@ -72,12 +80,5 @@
         <item>0</item>
         <item>1</item>
     </string-array>
-
-    <!-- BEGIN LICENSING -->
-    <!-- Unlicensed dialog messages -->
-    <string name="unlicensed_dialog_body">This application is not licensed. Please purchase it from Google Play.</string>
-    <string name="buy_button">Purchase</string>
-    <string name="quit_button">Exit</string>
-    <!-- END LICENSING -->
 
 </resources>
