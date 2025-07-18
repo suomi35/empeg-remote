@@ -1,6 +1,5 @@
-package com.chasinglemons.empeg.phone.ui.theme
+package com.chasinglemons.empeg.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

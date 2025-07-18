@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
-import com.chasinglemons.empeg.phone.ui.theme.EmpegRemoteTheme
+import com.chasinglemons.empeg.ui.theme.EmpegRemoteTheme
 import com.chasinglemons.empeg.preferences.EmpegPreferences
 import org.koin.android.ext.android.inject
 

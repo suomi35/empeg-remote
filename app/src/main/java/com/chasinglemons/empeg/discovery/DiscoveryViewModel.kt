@@ -25,19 +25,16 @@ class DiscoveryViewModel: ViewModel(), KoinComponent, Discoverer.DiscoveryReceiv
     private val _discoveryFlow = MutableStateFlow(empeg)
     val discoveryFlow: StateFlow<List<Empeg>> get() = _discoveryFlow
 
-//    init {
-//        Timber.d(">>> init")
-//        searchForEmpegs()
-//    }
-
     fun searchForEmpegs() {
         Timber.d(">>> searchForEmpegs()")
+        _discoveryFlow.value.clear()
         _showProgressIndicator.value = true
         Discoverer(this, preferences).start()
     }
 
     fun setPlayer(playerIp: String) {
         preferences.empegIp = playerIp
+        // TODO: Maybe send a message to the player display, a la "Android remote added"
     }
 
     fun getCurrentlyHomedPlayerIp(): String {

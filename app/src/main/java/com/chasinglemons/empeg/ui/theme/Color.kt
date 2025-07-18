@@ -1,4 +1,4 @@
-package com.chasinglemons.empeg.phone.ui.theme
+package com.chasinglemons.empeg.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

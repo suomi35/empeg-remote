@@ -61,6 +61,23 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.navigation.compose)
     implementation(libs.compose.material3)
+    implementation(libs.androidx.material3.window.size.class1.android)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+    implementation(libs.ktor.client.okhttp)
+
+//    implementation(libs.okhttp)
+
+//    implementation("io.coil-kt.coil3", "coil-compose", "3.2.0") {
+////        version { // the version block replaces the version above (so that one is redundant when used)
+////            branch = "main" // if you want to specify a branch instead of a version
+////        }
+//    }
+//    implementation("io.coil-kt.coil3", "coil-network-okhttp", "3.2.0") {
+////        version { // the version block replaces the version above (so that one is redundant when used)
+////            branch = "main" // if you want to specify a branch instead of a version
+////        }
+//    }
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

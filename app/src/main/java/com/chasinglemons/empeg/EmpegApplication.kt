@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import androidx.core.app.NotificationManagerCompat
 import com.chasinglemons.empeg.di.appModule
 import io.ktor.client.HttpClient
+import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import timber.log.Timber.DebugTree
@@ -41,7 +42,7 @@ class EmpegApplication: Application() {
     }
 
     companion object {
-        val ktorHttpClient = HttpClient()
+        val ktorClient = HttpClient(OkHttp)
 
         lateinit var appInstance: EmpegApplication
     }

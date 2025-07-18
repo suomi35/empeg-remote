@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="description_empeg_remote_icon">Empeg remote icon</string>
+    <string name="description_empeg_discovery_icon">Search for empegs icon</string>
+    <string name="description_discovery_back_icon">Go back icon</string>
+    <string name="description_show_settings_icon">Show settings icon</string>
+    <string name="description_empeg_display">Empeg display</string>
+
+    <string name="desc_remote_button_a1">remote button a1</string>
+    <string name="desc_remote_button_a2">remote button a2</string>
+    <string name="desc_remote_button_a3">remote button a3</string>
+    <string name="desc_remote_button_a4">remote button a4</string>
+    <string name="desc_remote_button_b1">remote button b1</string>
+    <string name="desc_remote_button_b2">remote button b2</string>
+    <string name="desc_remote_button_b3">remote button b3</string>
+    <string name="desc_remote_button_b4">remote button b4</string>
+    <string name="desc_remote_button_c1">remote button c1</string>
+    <string name="desc_remote_button_c2">remote button c2</string>
+    <string name="desc_remote_button_c3">remote button c3</string>
+    <string name="desc_remote_button_c4">remote button c4</string>
+    <string name="desc_remote_button_d1">remote button d1</string>
+    <string name="desc_remote_button_d2">remote button d2</string>
+    <string name="desc_remote_button_d3">remote button d3</string>
+    <string name="desc_remote_button_d4">remote button d4</string>
+    <string name="desc_remote_button_e1">remote button e1</string>
+    <string name="desc_remote_button_e2">remote button e2</string>
+    <string name="desc_remote_button_e3">remote button e3</string>
+    <string name="desc_remote_button_e4">remote button e4</string>
+    <string name="desc_remote_button_f1">remote button f1</string>
+    <string name="desc_remote_button_f2">remote button f2</string>
+    <string name="desc_remote_button_f3">remote button f3</string>
+    <string name="desc_remote_button_f4">remote button f4</string>
+    <string name="desc_remote_button_g1">remote button g1</string>
+
+</resources>
