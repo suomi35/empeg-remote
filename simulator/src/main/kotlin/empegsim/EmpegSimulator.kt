@@ -11,6 +11,7 @@ import java.net.URLDecoder
 import java.util.concurrent.Executors
 import javax.imageio.ImageIO
 import javax.xml.parsers.DocumentBuilderFactory
+import kotlin.system.exitProcess
 import org.xml.sax.InputSource
 
 /**
@@ -516,8 +517,12 @@ class EmpegHttpServer(
                     else -> respondEmpty(ex)
                 }
                 ex.requestURI.path == "/proc/empeg_notify" -> {
-                    println("[cmd] notify button=" + params["button"])
-                    respondEmpty(ex)
+                    // Legacy endpoint the app's EmpegApi used; the value arrives
+                    // URL-encoded ("VolUp" stays "VolUp"), then takes the same
+                    // press/release path as BUTTONRAW.
+                    val button = URLDecoder.decode(params["button"] ?: "", "UTF-8")
+                    println("[cmd] notify button=$button")
+                    handleButton(button, ex)
                 }
                 ex.requestURI.path == "/" && query.isEmpty() -> servePlaylist(ex, "101")
                 else -> {
@@ -682,6 +687,29 @@ private val FONT_PREFERENCE = listOf(
  *  real player ramps the volume while the button is held. */
 private const val LONG_PRESS_VOLUME_STEP = 5
 
+/** Screen image path, for the startup banner (matches what the app polls). */
+private const val SCREEN_PATH_HINT = "/proc/empeg_screen.png"
+
+/**
+ * Locates the fixtures directory for a possibly-relative path. Gradle used to
+ * run :simulator:run with simulator/ as the working directory, so walk up
+ * towards the filesystem root looking for the path before giving up. Only a
+ * directory holding actual fixture content (playlists/) counts - the empty
+ * simulator/fixtures/ghostwheel left behind by an early run would otherwise
+ * shadow the real one at the repo root.
+ */
+private fun resolveFixturesDir(path: String): java.io.File {
+    val direct = java.io.File(path)
+    if (direct.isAbsolute) return direct
+    var dir: java.io.File? = java.io.File("").absoluteFile
+    while (dir != null) {
+        val candidate = java.io.File(dir, path)
+        if (File(candidate, "playlists").isDirectory) return candidate
+        dir = dir.parentFile
+    }
+    return direct // let the caller's "no fonts" message show the path it tried
+}
+
 fun main(argv: Array<String>) {
     var port = 8080
     var fixtures = "fixtures/ghostwheel"
@@ -697,16 +725,21 @@ fun main(argv: Array<String>) {
         }
     }
 
+    // Gradle's :simulator:run starts in simulator/ and --args replaces the
+    // absolute --fixtures default the build script supplies, so a relative
+    // path has to be located by walking up from the working directory.
+    val fixturesDir = resolveFixturesDir(fixtures)
+
     println("=== Empeg Simulator ('$name') ===")
-    println("HTTP port: $port  fixtures: $fixtures")
-    println("Screen: http://localhost:$port/proc/empeg_screen.gif")
+    println("HTTP port: $port  fixtures: ${fixturesDir.path}")
+    println("Screen: http://localhost:$port${SCREEN_PATH_HINT}")
 
     val state = PlayerState(name)
     // Load the player's own fonts (.bf files from the player's /empeg/lib/fonts
     // directory) if they are present in <fixtures>/fonts - extract them with
     // tools/extract_player_fonts_from_upgrade.py (offline, from a firmware
     // image) or fetch_player_fonts.sh (from a player on the LAN).
-    val fonts = EmpegBfFont.loadAll(File(fixtures, "fonts"))
+    val fonts = EmpegBfFont.loadAll(File(fixturesDir, "fonts"))
     // Fonts that can actually draw text: graphics.bf and friends only hold a
     // handful of digits/punctuation glyphs, which would render letters as
     // nothing at all, so they are never chosen for the text lines.
@@ -722,7 +755,7 @@ fun main(argv: Array<String>) {
         val key = fontName.removeSuffix(".bf").lowercase()
         fonts.entries.firstOrNull { it.key.lowercase() == key }.also { hit ->
             if (hit == null) {
-                println("Font '$fontName' not found in $fixtures/fonts (available: ${fonts.keys.sorted()})")
+                println("Font '$fontName' not found in $fixturesDir/fonts (available: ${fonts.keys.sorted()})")
                 if (automatic != null) println("  using ${automatic.key}.bf instead")
             } else if (hit.value.textCoverage() < 20) {
                 println("Warning: ${hit.key}.bf has only ${hit.value.textCoverage()} text glyphs; " +
@@ -746,13 +779,23 @@ fun main(argv: Array<String>) {
         val small = ScreenRenderer.bfSmallFont
         println(
             "Player font: ${chosen.key}.bf - ${chosen.value.height}px glyphs, " +
-                "${chosen.value.textCoverage()} printable chars (${fonts.size} .bf file(s) in $fixtures/fonts)"
+                "${chosen.value.textCoverage()} printable chars (${fonts.size} .bf file(s) in $fixturesDir/fonts)"
         )
         if (small != null) println("  lower lines: ${small.height}px glyphs")
     } else {
-        println("No usable .bf fonts in $fixtures/fonts - using hijack kfont for the screen")
+        println("No usable .bf fonts in $fixturesDir/fonts - using hijack kfont for the screen")
     }
-    EmpegHttpServer(port, File(fixtures), state).start()
+    try {
+        EmpegHttpServer(port, fixturesDir, state).start()
+    } catch (e: java.net.BindException) {
+        System.err.println("Cannot bind HTTP port $port: ${e.message}")
+        if (port < 1024) System.err.println(
+            "Ports below 1024 need root; pick a high port instead, e.g.\n" +
+                "  ./gradlew :simulator:run --args=\"--port=8099\"\n" +
+                "and enter <host>:8099 in EmpegRemote (discovery advertises the port automatically)."
+        ) else System.err.println("Is another instance already running on port $port?")
+        exitProcess(1)
+    }
     DiscoveryResponder(8300, name, port).start()
 
     val lan = localLanAddress()

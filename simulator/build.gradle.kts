@@ -16,6 +16,10 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
+    // Run from the repo root so the default relative --fixtures path resolves
+    // even when --args replaces the args below (Gradle's default working dir
+    // is simulator/, which has no fixtures of its own).
+    workingDir = rootProject.projectDir
     // Point at the captured fixtures by default; override with:
     // ./gradlew :simulator:run --args="--fixtures=/path/to/fixtures"
     args(listOf("--fixtures=${rootProject.file("fixtures/ghostwheel").absolutePath}"))
