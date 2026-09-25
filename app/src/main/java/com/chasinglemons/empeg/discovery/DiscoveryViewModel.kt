@@ -33,7 +33,9 @@ class DiscoveryViewModel: ViewModel(), KoinComponent, Discoverer.DiscoveryReceiv
     }
 
     fun setPlayer(playerIp: String) {
-        preferences.empegIp = playerIp
+        // Trim what was typed: whitespace around a pasted "host:port" would
+        // otherwise end up in the stored player address and break every URL.
+        preferences.empegIp = playerIp.trim()
         // TODO: Maybe send a message to the player display, a la "Android remote added"
     }
 

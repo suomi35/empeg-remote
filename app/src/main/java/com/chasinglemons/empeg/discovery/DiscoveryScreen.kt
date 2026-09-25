@@ -123,7 +123,10 @@ fun DiscoveryScreen(
                             placeholder = {
                                 Text(stringResource(R.string.discovery_ip_address_placeholder))
                             },
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                            // Uri (not Decimal): the player may be "host:port"
+                            // for a simulator on a non-80 port, and the decimal
+                            // keypad has no colon to type it with.
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Uri),
                             singleLine = true,
                             value = manualIpAddress,
                             onValueChange = {
