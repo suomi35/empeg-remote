@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Empeg Remote"
 include(":app")
+include(":simulator")

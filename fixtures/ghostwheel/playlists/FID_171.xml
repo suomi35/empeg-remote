@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="./default.xsl"?>
+<playlist stylesheet="./default.xsl" host="empeg" allow_files="1" allow_commands="1" type="playlist" tagfid="171" fid="170" length="7" year="Various" options="0x0" genre="Various" title="Misc" artist="Various" source="Various" comment="">
+	<items>
+		<item>
+			<type>tune</type>
+			<tagfid>2cf1</tagfid>
+			<fid>2cf0</fid>
+			<year>1942</year>
+			<options></options>
+			<genre>Classical</genre>
+			<title>Fanfare for the Common Man</title>
+			<artist>Aaron Copland</artist>
+			<source>The Man And His Music</source>
+			<comment></comment>
+			<length>3050283</length>
+			<tracknr>1/12</tracknr>
+			<bitrate>fs128</bitrate>
+			<samplerate>44100</samplerate>
+			<codec>mp3</codec>
+			<duration>13:04</duration>
+			<offset>217</offset>
+		</item>
+		<item>
+			<type>tune</type>
+			<tagfid>2d31</tagfid>
+			<fid>2d30</fid>
+			<year>2001</year>
+			<options></options>
+			<genre>Rap</genre>
+			<title>Because I Got High</title>
+			<artist>Afroman</artist>
+			<source>Because I Got High</source>
+			<comment></comment>
+			<length>12582912</length>
+			<tracknr>1/4</tracknr>
+			<bitrate>fs320</bitrate>
+			<samplerate>48000</samplerate>
+			<codec>mp3</codec>
+			<duration>5:12</duration>
+			<offset>55744</offset>
+		</item>
+		<item>
+			<type>tune</type>
+			<tagfid>2d61</tagfid>
+			<fid>2d60</fid>
+			<year>1999</year>
+			<options></options>
+			<genre>Rock</genre>
+			<title>Wise up</title>
+			<artist>Aimee Mann</artist>
+			<source>Magnolia Soundtrack</source>
+			<comment></comment>
+			<length>4994004</length>
+			<tracknr>8/12</tracknr>
+			<bitrate>fs192</bitrate>
+			<samplerate>44100</samplerate>
+			<codec>mp3</codec>
+			<duration>3:28</duration>
+			<offset>460</offset>
+		</item>
+		<item>
+			<type>playlist</type>
+			<tagfid>f281</tagfid>
+			<fid>f280</fid>
+			<year>Various</year>
+			<options></options>
+			<genre>Various</genre>
+			<title>What Happen?</title>
+			<artist>Various</artist>
+			<source>Various</source>
+			<comment></comment>
+			<length>240</length>
+		</item>
+		<item>
+			<type>playlist</type>
+			<tagfid>91e1</tagfid>
+			<fid>91e0</fid>
+			<year>Various</year>
+			<options></options>
+			<genre>Various</genre>
+			<title>Call 0118 999 881 999 119 7253</title>
+			<artist>Various</artist>
+			<source>Various</source>
+			<comment></comment>
+			<length>42</length>
+		</item>
+		<item>
+			<type>playlist</type>
+			<tagfid>2e31</tagfid>
+			<fid>2e30</fid>
+			<year>Various</year>
+			<options></options>
+			<genre>Various</genre>
+			<title>Somebody set up us the bomb.</title>
+			<artist>Various</artist>
+			<source>Various</source>
+			<comment></comment>
+			<length>58</length>
+		</item>
+		<item>
+			<type>playlist</type>
+			<tagfid>1712</tagfid>
+			<fid>1711</fid>
+			<year>Various</year>
+			<options>0x0</options>
+			<genre>Various</genre>
+			<title>All your base are belong to us.</title>
+			<artist>Various</artist>
+			<source>Various</source>
+			<comment></comment>
+			<length>253</length>
+		</item>
+	</items>
+</playlist>

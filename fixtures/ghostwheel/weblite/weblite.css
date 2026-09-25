@@ -1,0 +1,207 @@
+/*
+ * empeg weblite by Mark Cushman <mark@cushman.net>
+ * modified by Alexander Graf <merlin@ghostwheel.de>
+ * (and lots of others not vain enough to put their names here).
+ */
+
+/* --- global styles ------------------------------------------*/
+body			{	margin: 8px;
+				padding: 0px;			}
+div			{	margin: 0px;
+				padding: 0px;			}
+img			{	border: 0px;			}
+
+/* --- empeg fascia image styles ------------------------------*/
+#screen			{	position: absolute;
+				top: 30px;
+				left: 139px;			}
+
+div.fascia		{	position: absolute;
+				top: 10px;
+				left: 10px;			}
+
+#playlists		{	position: absolute;
+				top: 192px;
+				left: 10px;			}
+
+#rioremote		{	position: absolute;
+				z-index: 100;
+				visibility: hidden;
+				top: 190px;
+				left: 598px;			}
+
+#riodesc		{	position: absolute;
+				z-index: 110;
+				top: 355px;
+				left: 0px;
+				width: 233px;
+				visibility: hidden;
+				border: 1px solid black;
+				padding-left: 2px;
+				color: black;
+				background-color: #83747B;
+				font-family: Arial,Helvetica,sans-serif;
+				font-size: 10px;		}
+
+div.control		{	position: absolute;
+				z-index: 50;
+				top: 157px;
+				left: 10px;
+				width: 562px;
+				color: white;
+				font-family: Arial,Helvetica,sans-serif;
+				font-size: 10px;
+				font-weight: bold;		}
+
+div.control a,
+div.control a:link,
+div.control a:visited,
+div.control a:active	{	cursor: pointer;
+				padding: 0px;
+				color: white;
+				float: right;
+				margin-right: 10px;		}
+
+div.control a:hover	{	color: yellow;
+				background: none;		}
+
+#bookmark		{	float: left;			}
+
+select.fascia		{	position: absolute;
+				z-index: 10;
+				width: 90px;
+				border: 1px solid black;
+				color: black;
+				background-color: #83747B;
+				font-family: Arial,Helvetica,sans-serif;
+				font-size: 10px;
+				visibility: hidden;
+				top: 182px;
+				left: 435px;			}
+
+select.refresh		{	position: absolute;
+				z-index: 10;
+				width: 90px;
+				border: 1px solid black;
+				color: black;
+				background-color: #83747B;
+				font-family: Arial,Helvetica,sans-serif;
+				font-size: 10px;
+				visibility: hidden;
+				top: 182px;
+				left: 505px;			}
+select.refresh option	{	text-align: right;		}
+
+.screen			{	position: relative;
+				background: #000;
+				width: 532px;
+				height: 132px;
+				top: 25px;
+				left: 25px;			}
+
+#hide			{	position: absolute;
+				background-color: #000;
+				opacity: 0.6;
+				-moz-opacity: 0.6;
+				filter: alpha(opacity=60);
+				z-index: 60;
+				cursor: wait;
+				display: none;
+				top: 0px;
+				left: 0px;
+				width: 32px;
+				height: 32px;
+				text-align: center;		}
+#anim			{	width: 32px;
+				height: 32px;			}
+
+/* --- table styles -------------------------------------------*/
+table			{	font-family: verdana;
+				font-size: 13px;
+				border: 0px solid #888;
+				cursor: default;
+				border-collapse: collapse;	}
+tr.on 			{	background: #e0e0e0		}
+tr.off 			{	background: #fff;		}
+th 			{	border: 1px solid #888;
+				background: #57a;
+				color: #ddd;
+				padding: 4px;
+				cursor: default;
+				text-align: left;		}
+th.title 		{	background: #555;
+				color: #ddd;
+				font-size: 18px;		}
+th.action		{	cursor: pointer;		}
+td 			{	border: 1px solid #888;
+				padding: 4px;			}
+td.footer 		{	background: #555;
+				color: #ddd;
+				font-size: 10px;
+				padding: 3px 4px 3px 4px;	}
+td.playlist 		{	font-weight: bold;		}
+td.tracknr		{	text-align: right;		}
+td.length, td.duration	{	text-align: right;		}
+td.actions 		{	font-size: 10px;
+				font-weight: bold;
+				background: #bbb;
+				color: #777;			}
+tr.off td.actions 	{	background: #ddd;		}
+td.actions span.bullet 	{	margin-left: 4px;
+				margin-right: 4px;		}
+
+tr:hover		{	background-color: #A6B8D2;	}
+
+/* --- misc styles ------------------------------------------- */
+span.control 		{	font-size: 12px;
+				padding: 0px 0px 0px 10px;	}
+span#footerlinks	{	float: left;
+				text-align: left;		}
+span#tagline		{	float: right;
+				text-align: right;		}
+
+/* --- link styles ------------------------------------------- */
+.actions a,
+.actions a:link,
+.actions a:visited,
+.actions a:active 	{	color: #777;
+				text-decoration: none;
+				padding: 4px;			}
+.actions a:hover 	{	background-color: #57a;
+				text-decoration: none;
+				color: #fff;			}
+span.control a,
+span.control a:link,
+span.control a:visited,
+span.control a:active 	{	color: #368;
+				font-weight: bold;
+				text-decoration: none;
+				padding: 2px 3px 4px 3px;	}
+span.control a:hover 	{	background-color: #57a;
+				text-decoration: none;
+				color: #fff;			}
+a,
+a:link,
+a:visited,
+a:active 		{	color: #368;
+				text-decoration: none;
+				padding: 2px;			}
+a:hover 		{	background-color: #57a;
+				text-decoration: none;
+				color: #fff;			}
+#footerlinks a,
+#tagline a,
+#footerlinks a:link,
+#tagline a:link,
+#footerlinks a:visited,
+#tagline a:visited,
+#footerlinks a:active,
+#tagline a:active	{	color: #ddd;
+				font-size: 10px;
+				text-decoration: none;
+				padding: 1px;			}
+#tagline a:hover,
+#footerlinks a:hover 	{	background-color: #ddd;
+				text-decoration: none;
+				color: #333;			}
+

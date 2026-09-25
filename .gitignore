@@ -69,3 +69,7 @@ captures/
 
 # Keystore files
 *.jks
+
+# Python bytecode from tools/ scripts
+__pycache__/
+*.pyc

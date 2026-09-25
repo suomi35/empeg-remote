@@ -1,162 +1,73 @@
 package com.chasinglemons.empeg.playlist
 
-import androidx.compose.runtime.mutableStateListOf
-import com.chasinglemons.empeg.EmpegApplication
+import com.chasinglemons.empeg.empegapi.EmpegApi
+import com.chasinglemons.empeg.empegapi.EmpegItem
+import com.chasinglemons.empeg.empegapi.KtorEmpegApi
 import com.chasinglemons.empeg.model.Playlist
 import com.chasinglemons.empeg.model.PlaylistStatus
-import com.chasinglemons.empeg.preferences.EmpegPreferences
 import com.chasinglemons.empeg.util.Constants
-import io.ktor.client.call.body
-import io.ktor.client.request.get
-import io.ktor.http.URLProtocol
-import io.ktor.http.appendEncodedPathSegments
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.withContext
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import timber.log.Timber
 
-class PlaylistRepository: KoinComponent {
+/**
+ * Loads playlists from the player and exposes them as [Playlist] models for
+ * the UI. All player communication goes through [EmpegApi]; parsing of the
+ * XML wire format happens in [com.chasinglemons.empeg.empegapi.PlaylistXmlParser].
+ */
+class PlaylistRepository(
+    private val api: EmpegApi
+) {
 
-    private val preferences: EmpegPreferences by inject()
+    private val _playlist = MutableStateFlow<List<Playlist>>(emptyList())
+    val playlist: StateFlow<List<Playlist>> = _playlist.asStateFlow()
 
-    private val _playlist = MutableStateFlow(mutableStateListOf<Playlist>())
-    val playlist = _playlist.asStateFlow()
+    private val _status = MutableStateFlow(PlaylistStatus.LOADING)
+    val status: StateFlow<PlaylistStatus> = _status.asStateFlow()
 
-    private val _playlistHistory = MutableStateFlow(mutableStateListOf<String>())
-    val playlistHistory = _playlistHistory.asStateFlow()
-
-    private val _showPlaylistHistory = MutableStateFlow(false)
-    val showPlaylistHistory = _showPlaylistHistory.asStateFlow()
-
-    suspend fun fetchPlaylist(playlistPath: String = "/?FID=101&EXT=.htm"): PlaylistStatus {
-        println(">>> fetchPlaylist()")
-        var playlistStatus = PlaylistStatus.LOADING
-
-        withContext(Dispatchers.IO) {
-            val response: String = EmpegApplication.ktorClient.get {
-                url {
-                    protocol = URLProtocol.HTTP
-                    host = preferences.empegIp
-                    appendEncodedPathSegments(playlistPath)
-                }
-            }.body<String>()
-
-            // parse the result
-            val list: MutableList<Playlist> = ArrayList()
-
-            val doc: Document = Jsoup.parse(response)
-            val trs = doc.getElementsByTag(Constants.HTML_TR)
-            for (tr in trs) {
-
-                val listElements: MutableList<String> = ArrayList()
-                val listLinks: MutableList<String> = ArrayList()
-                var name = ""
-                var length = ""
-                var type = ""
-                var artist = ""
-                var source = ""
-
-                println(">>> TD -> ${tr.text()}")
-                val tds = tr.getElementsByTag(Constants.HTML_TD)
-
-                for (td in tds) {
-                    println(">>> TD -> ${td.text()}")
-
-                    val link = td.select(Constants.HTML_A).first()
-
-                    if (link?.attr(Constants.HTML_HREF) != null) {
-                        listLinks.add(link.attr(Constants.HTML_HREF))
-                    }
-
-                    if (td.elementSiblingIndex() == 5) {
-                        name = td.text()
-                    }
-                    if (td.elementSiblingIndex() == 6) {
-                        length = td.text()
-                    }
-                    if (td.elementSiblingIndex() == 7) {
-                        type = td.text()
-                    }
-                    if (td.elementSiblingIndex() == 8) {
-                        artist = td.text()
-                    }
-                    if (td.elementSiblingIndex() == 9) {
-                        source = td.text()
-                    }
-                }
-
-                // build the INSERT link
-                val myInsert = listLinks[2].replace("-", "!")
-
-                if (listLinks.size > 5) {
-                    if (listLinks[5].endsWith(Constants.EXTENSION_MP3)) { // this is a song, not a dir
-                        list.add(
-                            Playlist(
-                                name = name,
-                                streamURL = listLinks[0],
-                                playURL = listLinks[1],
-                                insertURL = myInsert,
-                                enqueueURL = listLinks[2],
-                                appendURL = listLinks[3],
-                                url = "none",
-                                length = length,
-                                type = type,
-                                artist = artist,
-                                source = source
-                            )
-                        )
-                    } else {
-                        list.add(
-                            Playlist(
-                                name = name,
-                                streamURL = listLinks[0],
-                                playURL = listLinks[1],
-                                insertURL = myInsert,
-                                enqueueURL = listLinks[2],
-                                appendURL = listLinks[3],
-                                url = listLinks[5],
-                                length = length,
-                                type = type,
-                                artist = artist,
-                                source = source
-                            )
-                        )
-                    }
-                } else {
-                    // HEAD LIST
-                    list.add(
-                        Playlist(
-                            name = name,
-                            streamURL = listLinks[0],
-                            playURL = listLinks[1],
-                            insertURL = myInsert,
-                            enqueueURL = listLinks[2],
-                            appendURL = listLinks[4],
-                            url = "head",
-                            length = length,
-                            type = type,
-                            artist = artist,
-                            source = source
-                        )
-                    )
-
-                    // Log.i("PLAYLIST_EXPLORER","pListLinks.get(4) = "+pListLinks.get(4));
-                    if (response[1].toString() == "add") {
-                        _playlistHistory.value.add(listLinks[4])
-                    }
-                    if (name != Constants.ALL_MUSIC && listLinks.size > 1 /* if nothing is returned (player off or not configured)*/) {
-                        _showPlaylistHistory.value = true
-                    } else {
-                        _showPlaylistHistory.value = false
-                    }
-                }
-            }
-            _playlist.value = mutableStateListOf(*list.toTypedArray())
+    /**
+     * Fetches the playlist with the given FID (root by default) and maps the
+     * parsed XML items into UI models. On any network/parse failure the
+     * status becomes [PlaylistStatus.ERROR] and the previous list is kept.
+     */
+    suspend fun fetchPlaylist(fid: String = EmpegApi.ROOT_FID): PlaylistStatus {
+        _status.value = PlaylistStatus.LOADING
+        val result = try {
+            api.fetchPlaylist(fid)
+        } catch (e: Exception) {
+            Timber.e(e, "fetchPlaylist(fid=%s) failed", fid)
+            null
         }
-        return playlistStatus
+
+        if (result == null) {
+            _status.value = PlaylistStatus.ERROR
+            return _status.value
+        }
+
+        _playlist.value = result.items.map { it.toUiModel() }
+        _status.value = PlaylistStatus.LOADED
+        return _status.value
+    }
+
+    private fun EmpegItem.toUiModel(): Playlist {
+        // Item command URLs follow the web lite grammar:
+        // ?NODATA&SERIAL=%23<fid>[+|!|-] (append/insert/enqueue), play has no suffix.
+        // The '#' is URL-encoded as %23, '+' as %2B.
+        return Playlist(
+            name = title,
+            streamURL = "${KtorEmpegApi.encodePathComponent(title)}.m3u?FID=$tagFid&EXT=.m3u",
+            playURL = "?NODATA&SERIAL=" + KtorEmpegApi.encodeSerial(KtorEmpegApi.serialPlay(fid)),
+            insertURL = "?NODATA&SERIAL=" + KtorEmpegApi.encodeSerial(KtorEmpegApi.serialInsert(fid)),
+            enqueueURL = "?NODATA&SERIAL=" + KtorEmpegApi.encodeSerial(KtorEmpegApi.serialEnqueue(fid)),
+            appendURL = "?NODATA&SERIAL=" + KtorEmpegApi.encodeSerial(KtorEmpegApi.serialAppend(fid)),
+            url = if (isPlaylist) "?FID=$tagFid&EXT=.xml" else Constants.NO_URL,
+            // For tunes the human readable duration is what the UI wants;
+            // playlists report their item count.
+            length = if (isTune) (duration ?: length ?: "") else (length ?: ""),
+            type = type,
+            artist = artist ?: "",
+            source = source ?: ""
+        )
     }
 }

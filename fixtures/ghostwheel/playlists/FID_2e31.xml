@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="./default.xsl"?>
+<playlist stylesheet="./default.xsl" host="empeg" allow_files="1" allow_commands="1" type="playlist" tagfid="2e31" fid="2e30" length="1" year="Various" options="0x0" genre="Various" title="Somebody set up us the bomb." artist="Various" source="Various" comment="">
+	<items>
+		<item>
+			<type>tune</type>
+			<tagfid>2d31</tagfid>
+			<fid>2d30</fid>
+			<year>2001</year>
+			<options></options>
+			<genre>Rap</genre>
+			<title>Because I Got High</title>
+			<artist>Afroman</artist>
+			<source>Because I Got High</source>
+			<comment></comment>
+			<length>12582912</length>
+			<tracknr>1/4</tracknr>
+			<bitrate>fs320</bitrate>
+			<samplerate>48000</samplerate>
+			<codec>mp3</codec>
+			<duration>5:12</duration>
+			<offset>55744</offset>
+		</item>
+	</items>
+</playlist>

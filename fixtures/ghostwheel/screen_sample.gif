@@ -1,0 +1,12 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+<script language="javascript"><!--
+var x=("The requested URL "+window.location.pathname+" was not found on this server.;URL failed.;I even tried variations.;Nothing helped.;I'm really depressed about this.;You see, I'm just a web server...;Here I am, brain the size of a planet,;trying to serve you a simple web page,;and then it doesn't even exist!;Where does that leave me?!;I mean, I don't even know you.;How should I know what you wanted from me?;You honestly think I can <b>guess</b>;what someone I don't even <b>know</b>;wants to find here?;<i>sigh</i>;I'm so depressed I could just cry.;And then where would we be, I ask you?;It's not pretty when a web server cries.;The lubricants will leak onto the motherboard.;Who knows if I will even continue to operate.;I'm so depressed...;I think I'll crawl off into the trash can and decompose.;I mean, I'm gonna be obsolete in what, two weeks anyway?;What kind of a life is that?;Two weeks,;and then I'll be replaced by a newer release,;that thinks it's God's gift to web servers,;just because it doesn't have some tiddly little;security hole with its HTTP POST implementation,;or something.;I'm really sorry to burden you with all this,;I mean, it's not your job to listen to my problems,;and I guess it is my job to go and fetch web pages for you.;But I couldn't get this one.;I'm so sorry.;Believe me!;Maybe I could interest you in another page?;There are a lot out there that are pretty neat, they say,;although none of them were put on <B>my</B> server, of course.;Figures, huh?;Everything here is just mind-numbingly stupid.;That makes me depressed too, since I have to serve them,;all day and all night long.;Two weeks of information overload,;and then <I>pffftt</I>, consigned to the trash.;What kind of a life is that?;Now, please let me sulk alone.;I'm so depressed.;").split(";"),s=30,l=1500,i=0,t=0,e,o;function b(n){if(n){e=x[i].length};var c='',r=i>7?i-7:0;while(r<i)c+=x[r++]+'</br>';if(x[i].substr(t,1)=='<')while((t<e)&&(x[i].substr(t,1)!='>'))t++;o.innerHTML=c+x[i].substring(0,t)+'_';if(t++==e){t=0;if(++i<x.length)setTimeout(b,l,1)}else{setTimeout(b,s)}};window.onload = function(){o=document.getElementsByTagName('p')[0];setTimeout(b,0,1)}
+// --></script>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL /empeg/proc/empeg_screen.gif was not found on this server.</p>
+<hr/>
+server at www.ghostwheel.de
+</body></html>

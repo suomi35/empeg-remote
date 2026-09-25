@@ -37,6 +37,14 @@ android {
     buildFeatures {
         compose = true
     }
+
+    sourceSets {
+        // Make the captured player fixtures available as test resources so
+        // parser tests run against real wire data (see fixtures/ghostwheel).
+        getByName("test") {
+            resources.srcDir("${rootDir}/fixtures/ghostwheel")
+        }
+    }
 }
 
 dependencies {
@@ -47,7 +55,6 @@ dependencies {
 
     implementation(libs.timber)
 
-    implementation(libs.jsoup)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

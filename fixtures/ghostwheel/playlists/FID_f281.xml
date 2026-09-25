@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="./default.xsl"?>
+<playlist stylesheet="./default.xsl" host="empeg" allow_files="1" allow_commands="1" type="playlist" tagfid="f281" fid="f280" length="1" year="Various" options="0x0" genre="Various" title="What Happen?" artist="Various" source="Various" comment="">
+	<items>
+		<item>
+			<type>tune</type>
+			<tagfid>2d61</tagfid>
+			<fid>2d60</fid>
+			<year>1999</year>
+			<options></options>
+			<genre>Rock</genre>
+			<title>Wise up</title>
+			<artist>Aimee Mann</artist>
+			<source>Magnolia Soundtrack</source>
+			<comment></comment>
+			<length>4994004</length>
+			<tracknr>8/12</tracknr>
+			<bitrate>fs192</bitrate>
+			<samplerate>44100</samplerate>
+			<codec>mp3</codec>
+			<duration>3:28</duration>
+			<offset>460</offset>
+		</item>
+	</items>
+</playlist>
