@@ -17,7 +17,7 @@
 
     <string name="discovery_title">Choose Player</string>
 
-    <string name="discovery_ip_address_placeholder">IP address</string>
+    <string name="discovery_ip_address_placeholder">IP address or host:port</string>
     <string name="discovery_ip_address_ok">OK</string>
 
     <string name="overflow_menu_item_send_message">Send message</string>

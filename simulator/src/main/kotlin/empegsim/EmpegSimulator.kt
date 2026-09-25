@@ -104,14 +104,35 @@ object PlaylistXml {
 
 class PlayerState(val name: String) {
     var playing: Item? = null
-    var paused: Boolean = false
+    var paused = false
     val queue = ArrayDeque<Item>()
-    var volume: Int = 50
+    private val history = ArrayDeque<Item>()
+
+    var volume: Int = DEFAULT_VOLUME
+        private set
+
+    /** When the volume last changed, so the screen can flash a volume overlay
+     *  the way the real player does when you touch the volume buttons. */
+    var volumeChangedAt: Long = 0L
+        private set
+
+    /** The last command that arrived, and when - echoed on screen briefly so
+     *  presses from the Android app are visible at a glance. */
+    var lastCommand: String? = null
+        private set
+    var lastCommandAt: Long = 0L
+        private set
+
+    fun noteCommand(command: String) {
+        lastCommand = command
+        lastCommandAt = System.nanoTime()
+    }
 
     fun play(item: Item) {
         playing = item
         paused = false
         queue.clear()
+        history.clear()
         println("[state] PLAY: ${item.artist} - ${item.title}")
     }
 
@@ -132,27 +153,74 @@ class PlayerState(val name: String) {
     }
 
     fun next() {
-        queue.removeFirstOrNull()?.let {
-            playing = it
-            paused = false
-            println("[state] NEXT: ${it.artist} - ${it.title} (queue=${queue.size})")
-        } ?: println("[state] NEXT: queue empty, nothing to skip to")
+        val current = playing
+        val upcoming = queue.removeFirstOrNull()
+        if (upcoming == null) {
+            println("[state] NEXT: queue empty, staying on ${current?.title ?: "nothing"}")
+            return
+        }
+        if (current != null) history.addLast(current)
+        playing = upcoming
+        paused = false
+        println("[state] NEXT: ${upcoming.artist} - ${upcoming.title} (queue=${queue.size})")
     }
 
     fun previous() {
-        println("[state] PREV (history not tracked; staying on ${playing?.title})")
+        val back = history.removeLastOrNull()
+        if (back == null) {
+            println("[state] PREV: no history yet (staying on ${playing?.title ?: "nothing"})")
+            return
+        }
+        playing?.let { queue.addFirst(it) } // the track we were on goes back in the queue
+        playing = back
+        paused = false
+        println("[state] PREV: ${back.artist} - ${back.title} (queue=${queue.size})")
     }
 
     fun togglePause() {
-        if (playing != null) {
-            paused = !paused
-            println("[state] ${if (paused) "PAUSE" else "PLAY"}")
+        if (playing == null) {
+            println("[state] PAUSE ignored: nothing playing")
+            return
         }
+        paused = !paused
+        println("[state] ${if (paused) "PAUSE" else "PLAY"}")
     }
+
+    fun volumeUp(step: Int = 1) = setVolume(this.volume + step)
+
+    fun volumeDown(step: Int = 1) = setVolume(this.volume - step)
+
+    fun setVolume(value: Int) {
+        val clamped = value.coerceIn(MIN_VOLUME, MAX_VOLUME)
+        volume = clamped
+        volumeChangedAt = System.nanoTime()
+        println("[state] VOLUME: $clamped/$MAX_VOLUME")
+    }
+
+    /** True for a short while after a volume change (drives the overlay). */
+    fun volumeOverlayActive(): Boolean = System.nanoTime() - volumeChangedAt < VOLUME_OVERLAY_NANOS
+
+    /** The command to echo on screen, or null when there is nothing recent. */
+    fun recentCommand(): String? =
+        lastCommand?.takeIf { System.nanoTime() - lastCommandAt < COMMAND_ECHO_NANOS }
 
     fun nowPlayingLine(): String {
         val p = playing ?: return "Stopped"
         return "${p.artist} - ${p.title}"
+    }
+
+    fun stateWord(): String = when {
+        playing == null -> "Stopped"
+        paused -> "Paused"
+        else -> "Playing"
+    }
+
+    companion object {
+        const val MIN_VOLUME = 0
+        const val MAX_VOLUME = 100
+        const val DEFAULT_VOLUME = 50
+        private const val VOLUME_OVERLAY_NANOS = 1_500_000_000L
+        private const val COMMAND_ECHO_NANOS = 1_200_000_000L
     }
 }
 
@@ -173,6 +241,9 @@ object ScreenRenderer {
      *  shows now-playing large and everything else small. */
     var bfSmallFont: EmpegBfFont.BfFont? = null
 
+    /** File name (minus .bf) of [bfFont], for logs and the screen text view. */
+    var bfFontName: String = "?"
+
     /** Renders the player state as a 128x32 image. With a .bf font loaded the
      *  player's own 2-bit-shade glyphs are used (grayscale PNG); otherwise the
      *  hijack kfont (1-bit). */
@@ -180,51 +251,99 @@ object ScreenRenderer {
         val font = bfFont
         if (font != null) return renderWithBfFont(state, font, format)
         val img = BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_BYTE_BINARY)
-        drawString(img, 0, 0, state.name)
-        drawString(img, 1, 0, state.nowPlayingLine())
-        drawString(img, 2, 0, if (state.paused) "PAUSED" else "Queue: ${state.queue.size}")
-        drawVolumeBar(img, 3, state.volume)
+        if (state.volumeOverlayActive()) {
+            drawString(img, 0, 0, "Vol ${state.volume}")
+            drawString(img, 1, 0, volumeBar(state.volume, barSegments()))
+        } else {
+            drawString(img, 0, 0, state.nowPlayingLine())
+            drawString(img, 1, 0, commandOrName(state))
+            drawString(img, 2, 0, "${state.stateWord()}  q:${state.queue.size}")
+            drawString(img, 3, 0, "Vol ${state.volume} ${volumeBar(state.volume, 12)}")
+        }
         val out = ByteArrayOutputStream()
         ImageIO.write(img, format, out)
         return out.toByteArray()
     }
+
+    /** The screen as plain text, for the /proc/empeg_screen.txt debugging
+     *  endpoint: exactly what the image shows, without decoding a PNG. */
+    fun describe(state: PlayerState): String = buildString {
+        val font = bfFont
+        appendLine("empeg simulator screen (${WIDTH}x${HEIGHT})")
+        appendLine("  font        : " + (font?.let { "${bfFontName}.bf, ${it.height}px" } ?: "hijack kfont (1-bit)"))
+        appendLine("  overlay     : " + if (state.volumeOverlayActive()) "VOLUME (flashing)" else "none")
+        appendLine("  now playing : ${state.nowPlayingLine()}")
+        appendLine("  state       : ${state.stateWord()}   queue: ${state.queue.size}")
+        appendLine("  volume      : ${state.volume}/${PlayerState.MAX_VOLUME}")
+        append("  last command: " + (state.recentCommand() ?: state.lastCommand ?: "-"))
+        state.recentCommand() ?: append(" (expired)")
+    }
+
+    /** The command echo or the player name, whichever line 2 should show. */
+    private fun commandOrName(state: PlayerState): String =
+        state.recentCommand()?.let { "> $it" } ?: "${state.name}  ${state.stateWord()}"
 
     /** Renders using the player's own .bf font: variable-width glyphs with
      *  2-bit shades (0 blank, 3 brightest). The display is 32 rows tall, so the
      *  layout adapts to the font the player would use:
      *
      *  - a font short enough for three lines (medium.bf, 9px) draws them all:
-     *    now playing, player name, then status + volume bar;
+     *    now playing (scrolling when too wide, like the real player), the
+     *    player name / last command, then status and the volume bar;
      *  - a taller font (large.bf, 18px) draws now playing big at the top and
-     *    the two lower lines in [bfSmallFont] (small.bf, 6px), mirroring the
+     *    the lower lines in [bfSmallFont] (small.bf, 6px), mirroring the
      *    real player's "big line plus small status" display;
-     *  - with no smaller font available it falls back to one status line.
+     *  - a volume change flashes a "Vol <n>" overlay just like the firmware.
      */
     private fun renderWithBfFont(state: PlayerState, font: EmpegBfFont.BfFont, format: String): ByteArray {
         val img = BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_BYTE_GRAY)
-        val status = if (state.paused) "PAUSED" else "Queue: ${state.queue.size}"
-        val threeLines = 3 * font.height <= HEIGHT
-        if (threeLines) {
-            drawBfString(img, font, 0, 0, state.nowPlayingLine())
-            drawBfString(img, font, 0, font.height, state.name)
-            drawBfString(img, font, 0, HEIGHT - font.height, status)
-            drawBfVolumeBar(img, font, HEIGHT - font.height, state.volume)
+        if (state.volumeOverlayActive()) {
+            val small = bfSmallFont ?: font
+            drawBfString(img, font, 0, 0, "Vol ${state.volume}")
+            drawBfString(img, small, 0, HEIGHT - small.height, volumeBar(state.volume, bfBarSegments(small)))
         } else {
-            drawBfString(img, font, 0, 0, state.nowPlayingLine())
-            val small = bfSmallFont
-            val sh = small?.height ?: 0
-            if (small != null && sh > 0 && font.height + 2 * sh <= HEIGHT) {
-                drawBfString(img, small, 0, HEIGHT - 2 * sh, state.name)
-                drawBfString(img, small, 0, HEIGHT - sh, status)
-                drawBfVolumeBar(img, small, HEIGHT - sh, state.volume)
-            } else if (small != null && sh > 0 && font.height + sh <= HEIGHT) {
-                drawBfString(img, small, 0, HEIGHT - sh, status)
-                drawBfVolumeBar(img, small, HEIGHT - sh, state.volume)
+            val status = "${state.stateWord()}  q:${state.queue.size}"
+            val threeLines = 3 * font.height <= HEIGHT
+            if (threeLines) {
+                drawBfStringScrolling(img, font, 0, 0, state.nowPlayingLine())
+                drawBfString(img, font, 0, font.height, commandOrName(state))
+                drawBfString(img, font, 0, HEIGHT - font.height, "${status}  Vol ${state.volume}")
+            } else {
+                drawBfStringScrolling(img, font, 0, 0, state.nowPlayingLine())
+                val small = bfSmallFont
+                val sh = small?.height ?: 0
+                when {
+                    small != null && sh > 0 && font.height + 2 * sh <= HEIGHT -> {
+                        drawBfString(img, small, 0, HEIGHT - 2 * sh, commandOrName(state))
+                        drawBfString(img, small, 0, HEIGHT - sh, "$status  Vol ${state.volume}")
+                    }
+                    small != null && sh > 0 && font.height + sh <= HEIGHT ->
+                        drawBfString(img, small, 0, HEIGHT - sh, "$status  Vol ${state.volume}")
+                    else -> Unit
+                }
             }
         }
         val out = ByteArrayOutputStream()
         ImageIO.write(img, format, out)
         return out.toByteArray()
+    }
+
+    /** A "#"/"-" bar of [segments] characters for the given volume. */
+    private fun volumeBar(volume: Int, segments: Int): String {
+        val filled = (volume * segments + 50) / 100
+        return buildString { repeat(segments) { i -> append(if (i < filled) '#' else '-') } }
+    }
+
+    /** How many bar segments fit on one 8px hijack-kfont row. */
+    private fun barSegments(): Int {
+        val width = EmpegFont.charWidth('#')
+        return ((WIDTH - measure("Vol 100 ")) / width).coerceAtLeast(4)
+    }
+
+    /** How many bar segments fit on one .bf font row, before the volume number. */
+    private fun bfBarSegments(font: EmpegBfFont.BfFont): Int {
+        val width = font.charWidth('#').coerceAtLeast(1)
+        return ((WIDTH - font.measure("Vol 100 ")) / width).coerceAtLeast(4)
     }
 
     private fun drawBfString(
@@ -252,18 +371,54 @@ object ScreenRenderer {
 
     private val SHADE_RGB = intArrayOf(0, 0xFF404040.toInt(), 0xFF9A9A9A.toInt(), -1)
 
-    private fun drawBfVolumeBar(img: BufferedImage, font: EmpegBfFont.BfFont, yTop: Int, volume: Int) {
-        val segments = 20
-        val filled = (volume * segments + 50) / 100
-        val bar = buildString {
-            repeat(segments) { i -> append(if (i < filled) '#' else '-') }
+    /** Draws a line of .bf text, scrolling it right-to-left when it is wider
+     *  than the display (the real player scrolls long titles too). The offset
+     *  comes from wall-clock time, so successive screen requests animate. */
+    private fun drawBfStringScrolling(
+        img: BufferedImage,
+        font: EmpegBfFont.BfFont,
+        col0: Int,
+        yTop: Int,
+        text: String,
+    ) {
+        val width = font.measure(text)
+        if (width <= WIDTH - col0) {
+            drawBfString(img, font, col0, yTop, text)
+            return
         }
-        var col = 0
-        drawBfString(img, font, col, yTop, "Vol ")
-        col += font.measure("Vol ")
-        drawBfString(img, font, col, yTop, bar)
-        col += font.measure(bar)
-        drawBfString(img, font, col, yTop, " $volume")
+        val gap = font.measure("   ")
+        val period = width + gap
+        val offset = ((System.nanoTime() / 1_000_000L) / SCROLL_MS_PER_PIXEL % period).toInt()
+        // Draw the tail of the line, then the head so the text wraps around.
+        drawBfStringClipped(img, font, col0 - offset, yTop, text)
+        drawBfStringClipped(img, font, col0 - offset + period, yTop, text)
+    }
+
+    /** Like [drawBfString] but allows a negative starting column, so scrolling
+     *  can start off the left edge. */
+    private fun drawBfStringClipped(
+        img: BufferedImage,
+        font: EmpegBfFont.BfFont,
+        col0: Int,
+        yTop: Int,
+        text: String,
+    ) {
+        var col = col0
+        for (ch in text) {
+            val glyph = font.glyph(ch) ?: continue
+            if (col >= WIDTH) break
+            for (y in 0 until font.height) {
+                if (yTop + y >= HEIGHT) break
+                for (x in 0 until glyph.width) {
+                    val px = col + x
+                    if (px < 0 || px >= WIDTH) continue
+                    val shade = glyph[x, y]
+                    if (shade == 0) continue
+                    img.setRGB(px, yTop + y, SHADE_RGB[shade])
+                }
+            }
+            col += glyph.width
+        }
     }
 
 
@@ -289,21 +444,10 @@ object ScreenRenderer {
         }
     }
 
-    private fun drawVolumeBar(img: BufferedImage, textRow: Int, volume: Int) {
-        val segments = 20
-        val filled = (volume * segments + 50) / 100
-        val label = "Vol "
-        var col = 0
-        drawString(img, textRow, col, label)
-        col += measure(label)
-        repeat(segments) { i ->
-            drawString(img, textRow, col, if (i < filled) "#" else "-")
-            col += EmpegFont.charWidth(if (i < filled) '#' else '-')
-        }
-        drawString(img, textRow, col, " $volume")
-    }
-
     private fun measure(text: String): Int = text.sumOf { EmpegFont.charWidth(it) }
+
+    /** Scroll speed of the now-playing line, in milliseconds per pixel. */
+    private const val SCROLL_MS_PER_PIXEL = 90L
 }
 
 // -------------------------------------------------------------- http server
@@ -314,23 +458,49 @@ class EmpegHttpServer(
     private val state: PlayerState
 ) {
     private val playlistCache = HashMap<String, Playlist?>()
+    private var lastScreenSignature: String? = null
 
     fun start() {
         val server = HttpServer.create(java.net.InetSocketAddress(port), 0)
         server.executor = Executors.newFixedThreadPool(4)
         server.createContext("/") { ex -> handle(ex) }
         server.createContext("/proc/empeg_screen") { ex ->
-            // The real player serves both /proc/empeg_screen.png (weblite) and
-            // .gif; serve whichever extension was requested.
-            val isPng = ex.requestURI.path.endsWith(".png")
-            val format = if (isPng) "png" else "gif"
-            ex.responseHeaders.add("Content-Type", "image/${format}")
-            val bytes = ScreenRenderer.renderImage(state, format)
-            ex.sendResponseHeaders(200, bytes.size.toLong())
-            ex.responseBody.use { it.write(bytes) }
+            // The real player serves /proc/empeg_screen.png (what weblite and
+            // the Android app poll) and hijack also serves .gif; serve whichever
+            // extension was asked for. ".txt" is a simulator-only debugging view
+            // that describes the screen in words.
+            when {
+                ex.requestURI.path.endsWith(".txt") -> {
+                    val text = ScreenRenderer.describe(state)
+                    logScreenChange(text)
+                    val bytes = text.toByteArray()
+                    ex.responseHeaders.add("Content-Type", "text/plain; charset=utf-8")
+                    ex.sendResponseHeaders(200, bytes.size.toLong())
+                    ex.responseBody.use { it.write(bytes) }
+                }
+                else -> {
+                    val format = if (ex.requestURI.path.endsWith(".png")) "png" else "gif"
+                    ex.responseHeaders.add("Content-Type", "image/$format")
+                    val bytes = ScreenRenderer.renderImage(state, format)
+                    logScreenChange(if (format == "png") bytes.contentHashCode().toString() else null)
+                    ex.sendResponseHeaders(200, bytes.size.toLong())
+                    ex.responseBody.use { it.write(bytes) }
+                }
+            }
         }
         server.start()
         println("[http] listening on port $port, fixtures from ${fixturesDir.absolutePath}")
+    }
+
+    /** Logs screen fetches only when the rendered content actually changes, so
+     *  the app's ~10 Hz polling does not flood the console but a new frame
+     *  (volume change, track change, button echo) is visible. */
+    private fun logScreenChange(signature: String?) {
+        if (signature == null) return
+        if (signature == lastScreenSignature) return
+        lastScreenSignature = signature
+        val overlay = if (state.volumeOverlayActive()) " [VOLUME OVERLAY]" else ""
+        println("[screen] ${state.nowPlayingLine()} | ${state.stateWord()} | vol ${state.volume}$overlay")
     }
 
     private fun handle(ex: HttpExchange) {
@@ -378,15 +548,28 @@ class EmpegHttpServer(
     }
 
     private fun handleButton(raw: String, ex: HttpExchange) {
-        val press = !raw.endsWith(".R")
-        val button = if (press) raw else raw.removeSuffix(".R")
-        val verb = if (press) "PRESS" else "RELEASE"
-        println("[cmd] BUTTON $verb: $button")
-        if (press) when (button) {
-            "Top" -> state.togglePause()
-            "KnobRight" -> state.next()
-            "KnobLeft" -> state.previous()
-            else -> { /* Left/Right/Bottom/Knob: logged only */ }
+        // The app sends "VolUp" (press), "VolUp.R" (release) and "VolUp.L"
+        // (long press); weblite sends "<Button>" and "<Button>.R".
+        val release = raw.endsWith(".R")
+        val stripped = raw.removeSuffix(".R")
+        val long = stripped.endsWith(".L")
+        val button = stripped.removeSuffix(".L")
+        val kind = if (release) "RELEASE" else if (long) "LONG" else "PRESS"
+        println("[cmd] BUTTON $kind: $button")
+        if (release) {
+            respondEmpty(ex)
+            return
+        }
+        val step = if (long) LONG_PRESS_VOLUME_STEP else 1
+        val hold = if (long) " (hold)" else ""
+        state.noteCommand("$button$hold")
+        when (button) {
+            "VolUp" -> state.volumeUp(step)
+            "VolDown" -> state.volumeDown(step)
+            "Play", "Top", "Knob" -> state.togglePause()
+            "NextTrack", "KnobRight" -> state.next()
+            "PrevTrack", "KnobLeft" -> state.previous()
+            else -> { /* menu/number/visual buttons: echoed on screen, no state change */ }
         }
         respondEmpty(ex)
     }
@@ -402,11 +585,15 @@ class EmpegHttpServer(
         println("[cmd] SERIAL: '$decoded' (fid=$fid action='$actionName')")
         if (item == null) {
             println("[cmd]   -> unknown fid $fid")
-        } else when (action) {
-            "" -> state.play(item)
-            "+" -> state.append(item)
-            "!" -> state.insert(item)
-            "-" -> state.append(item) // enqueue behaves like append in the sim
+            state.noteCommand("SERIAL $decoded (unknown fid)")
+        } else {
+            state.noteCommand("${actionName.uppercase()} ${item.title}")
+            when (action) {
+                "" -> state.play(item)
+                "+" -> state.append(item)
+                "!" -> state.insert(item)
+                "-" -> state.append(item) // enqueue behaves like append in the sim
+            }
         }
         respondEmpty(ex)
     }
@@ -447,7 +634,7 @@ class EmpegHttpServer(
 
 // ---------------------------------------------------------------- discovery
 
-class DiscoveryResponder(private val port: Int, private val name: String) {
+class DiscoveryResponder(private val port: Int, private val name: String, private val httpPort: Int) {
     fun start() {
         Thread {
             try {
@@ -463,10 +650,13 @@ class DiscoveryResponder(private val port: Int, private val name: String) {
                     println("[udp] packet from ${packet.address.hostAddress}:${packet.port}: '${received.trim()}'")
                     if (received.isNotBlank()) {
                         // Reply to any probe (the app sends "?"); replying to
-                        // everything is harmless and more forgiving.
-                        val response = "name=$name".toByteArray()
+                        // everything is harmless and more forgiving. A real
+                        // player only sends "name=<name>"; the extra port field
+                        // tells EmpegRemote which port to use, so discovery of a
+                        // simulator on 8080/8099 configures itself.
+                        val response = "name=$name port=$httpPort".toByteArray()
                         socket.send(DatagramPacket(response, response.size, packet.address, packet.port))
-                        println("[udp] answered discovery from ${packet.address.hostAddress}")
+                        println("[udp] answered discovery from ${packet.address.hostAddress} -> ${String(response)}")
                     }
                 }
             } catch (e: Exception) {
@@ -487,6 +677,10 @@ private val FONT_PREFERENCE = listOf(
     "large", "player-large", "visual-large",
     "graphics", "graphics-large", "graphics_large",
 )
+
+/** How many volume steps the app's long-press on VolUp/VolDown applies; the
+ *  real player ramps the volume while the button is held. */
+private const val LONG_PRESS_VOLUME_STEP = 5
 
 fun main(argv: Array<String>) {
     var port = 8080
@@ -537,6 +731,7 @@ fun main(argv: Array<String>) {
         } ?: automatic
     }
     ScreenRenderer.bfFont = chosen?.value
+    ScreenRenderer.bfFontName = chosen?.key ?: "kfont"
     // Companion font for the lower lines when the chosen font is too tall for
     // three of its own lines (large.bf, 18px): the real player pairs it with
     // small.bf.
@@ -558,8 +753,22 @@ fun main(argv: Array<String>) {
         println("No usable .bf fonts in $fixtures/fonts - using hijack kfont for the screen")
     }
     EmpegHttpServer(port, File(fixtures), state).start()
-    DiscoveryResponder(8300, name).start()
+    DiscoveryResponder(8300, name, port).start()
 
-    println("Ready. Point EmpegRemote at this machine's IP, or browse http://localhost:$port/")
+    val lan = localLanAddress()
+    println("Ready. In EmpegRemote, enter the player as \"<host>:<port>\" (the app appends the port itself only if you give it).")
+    if (lan != null) println("  display: http://$lan:$port/proc/empeg_screen.png   (this is what the app polls)")
+    println("  text view of the same screen: http://localhost:$port/proc/empeg_screen.txt")
     Thread.currentThread().join()
 }
+
+/** Best-guess LAN IPv4 of this machine, so the log can print a URL the phone
+ *  can actually reach (localhost is useless there). */
+private fun localLanAddress(): String? = runCatching {
+    java.net.NetworkInterface.getNetworkInterfaces().toList()
+        .filter { it.isUp && !it.isLoopback }
+        .flatMap { it.inetAddresses.toList() }
+        .filterIsInstance<java.net.Inet4Address>()
+        .firstOrNull { it.isSiteLocalAddress }
+        ?.hostAddress
+}.getOrNull()

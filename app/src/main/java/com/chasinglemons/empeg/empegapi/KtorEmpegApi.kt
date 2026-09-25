@@ -51,10 +51,7 @@ class KtorEmpegApi(
         Unit
     }
 
-    override fun screenUrl(): String {
-        val encodedHost = hostProvider()
-        return "http://$encodedHost$SCREEN_PATH"
-    }
+    override fun screenUrl(): String = EmpegApi.screenUrlFor(hostProvider())
 
     private suspend fun sendNodata(vararg params: Pair<String, String>) = withContext(Dispatchers.IO) {
         client.get {
@@ -80,7 +77,8 @@ class KtorEmpegApi(
         const val BUTTON_RAW = "BUTTONRAW"
         const val SERIAL = "SERIAL"
         const val NOTIFY_PATH = "/proc/empeg_notify"
-        const val SCREEN_PATH = "/proc/empeg_screen.gif"
+        /** Screen image path; see [EmpegApi.SCREEN_PATH]. */
+        const val SCREEN_PATH = EmpegApi.SCREEN_PATH
 
         /** Builds a play SERIAL command for the given FID ("#<fid>"). */
         fun serialPlay(fid: String) = "#$fid"

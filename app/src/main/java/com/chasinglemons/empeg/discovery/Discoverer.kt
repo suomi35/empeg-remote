@@ -107,14 +107,12 @@ class Discoverer internal constructor(
     }
 
     @Throws(IOException::class)
-    private fun parseResponse(response: String, address: InetAddress): Empeg {
+    private fun parseResponse(response: String, address: InetAddress): Empeg? {
         Timber.d(">>> response = $response")
-
-        val empegName =
-            response.split("name=".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val server = Empeg(empegName[1], address.hostAddress!!)
-
-        Timber.d(">>> Discovered server ${empegName[1]}@${address.hostAddress}")
+        // hijack answers with space separated key=value fields, e.g.
+        // "name=EmpegCar" (real player) or "name=EmpegSim port=8099" (simulator).
+        val server = DiscoveryResponse.parse(response, address.hostAddress ?: return null)
+        Timber.d(">>> Discovered server ${server?.name}@${server?.ip}")
         return server
     }
 

@@ -29,6 +29,7 @@ import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import com.chasinglemons.empeg.R
+import com.chasinglemons.empeg.empegapi.EmpegApi
 import com.chasinglemons.empeg.util.Utils
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancelAndJoin
@@ -44,7 +45,7 @@ fun EmpegDisplay(
     displayColor: Color,
     onClick: () -> Unit
 ) {
-    var currentImageUrl by remember { mutableStateOf("http://$empegIp/proc/empeg_screen.png") }
+    var currentImageUrl by remember { mutableStateOf(EmpegApi.screenUrlFor(empegIp)) }
     var currentPainter by remember { mutableStateOf<Painter?>(null) }
     var showError by remember { mutableStateOf(false) }
 
@@ -63,8 +64,8 @@ fun EmpegDisplay(
                     internalTickCount++ // This will not overflow until 9,223,372,036,854,775,807
 
                     currentImageUrl = when (currentImageUrl.endsWith("?")) {
-                        true -> "http://$empegIp/proc/empeg_screen.png"
-                        false -> "http://$empegIp/proc/empeg_screen.png?"
+                        true -> EmpegApi.screenUrlFor(empegIp)
+                        false -> EmpegApi.screenUrlFor(empegIp) + "?"
                     }
                     delay(refreshDelay)
                 }
