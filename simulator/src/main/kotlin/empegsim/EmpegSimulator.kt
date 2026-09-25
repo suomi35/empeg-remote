@@ -31,7 +31,7 @@ import org.xml.sax.InputSource
  *   <fixtures>/fonts, otherwise the 1-bit hijack kfont.
  * - UDP :8300 -> responds "name=<player name>" to discovery requests
  *
- * Run:  ./gradlew :simulator:run [--args="--port=8080 --fixtures=... --name=EmpegSim --font=medium"]
+ * Run:  ./gradlew :simulator:run [--args="--port=8080 --bind=<addr> --fixtures=... --name=EmpegSim --font=medium"]
  *
  * --font=<name> forces a font from <fixtures>/fonts (medium, small, large, ...);
  * by default the best text font is picked automatically, ignoring the
@@ -456,13 +456,19 @@ object ScreenRenderer {
 class EmpegHttpServer(
     private val port: Int,
     private val fixturesDir: File,
-    private val state: PlayerState
+    private val state: PlayerState,
+    private val bindAddress: String = "0.0.0.0"
 ) {
     private val playlistCache = HashMap<String, Playlist?>()
     private var lastScreenSignature: String? = null
 
     fun start() {
-        val server = HttpServer.create(java.net.InetSocketAddress(port), 0)
+        // "0.0.0.0" (the default) is the wildcard bind: listen on every
+        // interface, so the phone can reach us regardless of which NIC it is
+        // on. --bind=<addr> pins the server to one specific interface.
+        val address = if (bindAddress == "0.0.0.0") java.net.InetSocketAddress(port)
+        else java.net.InetSocketAddress(java.net.InetAddress.getByName(bindAddress), port)
+        val server = HttpServer.create(address, 0)
         server.executor = Executors.newFixedThreadPool(4)
         server.createContext("/") { ex -> handle(ex) }
         server.createContext("/proc/empeg_screen") { ex ->
@@ -490,7 +496,7 @@ class EmpegHttpServer(
             }
         }
         server.start()
-        println("[http] listening on port $port, fixtures from ${fixturesDir.absolutePath}")
+        println("[http] listening on $bindAddress:$port, fixtures from ${fixturesDir.absolutePath}")
     }
 
     /** Logs screen fetches only when the rendered content actually changes, so
@@ -639,14 +645,22 @@ class EmpegHttpServer(
 
 // ---------------------------------------------------------------- discovery
 
-class DiscoveryResponder(private val port: Int, private val name: String, private val httpPort: Int) {
+class DiscoveryResponder(
+    private val port: Int,
+    private val name: String,
+    private val httpPort: Int,
+    private val bindAddress: String = "0.0.0.0"
+) {
     fun start() {
         Thread {
             try {
-                val socket = DatagramSocket(port)
+                // Wildcard (0.0.0.0) by default: broadcasts are only received
+                // on an unbound/wildcard socket, so --bind applies to HTTP only.
+                val socket = if (bindAddress == "0.0.0.0") DatagramSocket(port)
+                else DatagramSocket(java.net.InetSocketAddress(java.net.InetAddress.getByName(bindAddress), port))
                 socket.broadcast = true
                 socket.reuseAddress = true
-                println("[udp] discovery responder on port $port")
+                println("[udp] discovery responder on $bindAddress:$port")
                 val buf = ByteArray(1024)
                 while (true) {
                     val packet = DatagramPacket(buf, buf.size)
@@ -715,6 +729,7 @@ fun main(argv: Array<String>) {
     var fixtures = "fixtures/ghostwheel"
     var name = "EmpegSim"
     var fontName: String? = null
+    var bindAddress = "0.0.0.0"
 
     for (arg in argv) {
         when {
@@ -722,6 +737,7 @@ fun main(argv: Array<String>) {
             arg.startsWith("--fixtures=") -> fixtures = arg.substringAfter('=')
             arg.startsWith("--name=") -> name = arg.substringAfter('=')
             arg.startsWith("--font=") -> fontName = arg.substringAfter('=')
+            arg.startsWith("--bind=") -> bindAddress = arg.substringAfter('=')
         }
     }
 
@@ -731,7 +747,7 @@ fun main(argv: Array<String>) {
     val fixturesDir = resolveFixturesDir(fixtures)
 
     println("=== Empeg Simulator ('$name') ===")
-    println("HTTP port: $port  fixtures: ${fixturesDir.path}")
+    println("HTTP port: $port  bind: $bindAddress  fixtures: ${fixturesDir.path}")
     println("Screen: http://localhost:$port${SCREEN_PATH_HINT}")
 
     val state = PlayerState(name)
@@ -786,7 +802,7 @@ fun main(argv: Array<String>) {
         println("No usable .bf fonts in $fixturesDir/fonts - using hijack kfont for the screen")
     }
     try {
-        EmpegHttpServer(port, fixturesDir, state).start()
+        EmpegHttpServer(port, fixturesDir, state, bindAddress).start()
     } catch (e: java.net.BindException) {
         System.err.println("Cannot bind HTTP port $port: ${e.message}")
         if (port < 1024) System.err.println(
@@ -796,22 +812,34 @@ fun main(argv: Array<String>) {
         ) else System.err.println("Is another instance already running on port $port?")
         exitProcess(1)
     }
-    DiscoveryResponder(8300, name, port).start()
+    DiscoveryResponder(8300, name, port, bindAddress).start()
 
     val lan = localLanAddress()
     println("Ready. In EmpegRemote, enter the player as \"<host>:<port>\" (the app appends the port itself only if you give it).")
-    if (lan != null) println("  display: http://$lan:$port/proc/empeg_screen.png   (this is what the app polls)")
+    if (lan != null) println("  display: http://$lan:$port${SCREEN_PATH_HINT}   (this is what the app polls)")
     println("  text view of the same screen: http://localhost:$port/proc/empeg_screen.txt")
     Thread.currentThread().join()
 }
 
-/** Best-guess LAN IPv4 of this machine, so the log can print a URL the phone
- *  can actually reach (localhost is useless there). */
+/**
+ * Best-guess LAN IPv4 of this machine, so the log can print a URL the phone
+ * can actually reach (localhost is useless there).
+ *
+ * Skips virtual interfaces (bridges, VM nets, VPN tunnels, Apple's awdl/llw):
+ * on a typical Mac those come first and their 172.16/192.168 addresses are not
+ * routable from the phone. Preference order: en* (Wi-Fi/Ethernet) site-local,
+ * then any other site-local.
+ */
 private fun localLanAddress(): String? = runCatching {
-    java.net.NetworkInterface.getNetworkInterfaces().toList()
-        .filter { it.isUp && !it.isLoopback }
-        .flatMap { it.inetAddresses.toList() }
-        .filterIsInstance<java.net.Inet4Address>()
-        .firstOrNull { it.isSiteLocalAddress }
-        ?.hostAddress
+    val candidates = java.net.NetworkInterface.getNetworkInterfaces().toList()
+        .filter { it.isUp && !it.isLoopback && !it.isVirtual }
+        .filterNot { it.name.matches(VIRTUAL_IFACE) }
+        .flatMap { iface -> iface.inetAddresses.toList().map { iface.name to it } }
+        .filter { (_, addr) -> addr is java.net.Inet4Address && addr.isSiteLocalAddress }
+    candidates.firstOrNull { (name, _) -> name.startsWith("en") }?.second?.hostAddress
+        ?: candidates.firstOrNull()?.second?.hostAddress
 }.getOrNull()
+
+/** Interfaces that never lead to the phone: VMware/VirtualBox/UTM bridges,
+ *  VPN tunnels, and Apple's peer-to-peer helpers. */
+private val VIRTUAL_IFACE = Regex("^(bridge|vmnet|vmenet|vboxnet|utun|awdl|llw|ap\\d|anpi|gif|stf|utun)\\d*")
