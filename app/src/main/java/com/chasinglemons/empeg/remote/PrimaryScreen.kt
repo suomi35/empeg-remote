@@ -161,7 +161,7 @@ fun PrimaryScreen(
                                 if (pagerState.currentPage < tabPositions.size) {
                                     SecondaryIndicator(
                                         Modifier.tabIndicatorOffset(tabPositions[pagerState.currentPage]),
-                                        12.dp, Color(0xFF00BFFF)
+                                        12.dp, MaterialTheme.colorScheme.primary
                                     )
                                 }
                             },

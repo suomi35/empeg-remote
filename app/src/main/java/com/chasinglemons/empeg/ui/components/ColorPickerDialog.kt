@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.chasinglemons.empeg.R
+import com.chasinglemons.empeg.util.Constants
 import com.chasinglemons.empeg.util.Utils
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,13 +48,14 @@ fun ColorPickerDialog(
     onChoice: (Color) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    val standardLensColors = arrayOf(
-        Color(0xFF00BFFF),
-        Color(0xFFE52900),
-        Color(0xFFD0C700),
-        Color(0xFF00DA37),
-        Color(0xFFFFFFFF)
-    )
+    // Straight from Constants so the picker's blue is the same blue as the app's accent.
+    val standardLensColors = listOf(
+        Constants.LENS_BLUE,
+        Constants.LENS_RED,
+        Constants.LENS_YELLOW,
+        Constants.LENS_GREEN,
+        Constants.LENS_WHITE
+    ).map { Color(it) }
     var selectedColor by remember(initialColor) { mutableStateOf(initialColor) }
 
     BasicAlertDialog(

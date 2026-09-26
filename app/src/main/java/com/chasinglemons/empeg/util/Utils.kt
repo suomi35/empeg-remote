@@ -28,7 +28,7 @@ object Utils {
             Color(hexString.toColorInt())
         } catch (e: IllegalArgumentException) {
             println("Warning: Invalid hex string '$hexString'. Using default color. ${e.message}")
-            Color(0xFF00BFFF)
+            Color(Constants.LENS_BLUE)
         }
     }
 }
