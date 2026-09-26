@@ -58,6 +58,12 @@ class KtorEmpegApi(
             url {
                 protocol = URLProtocol.HTTP
                 host = hostProvider()
+                path("/")
+                // NODATA makes the player execute the command without sending
+                // an HTML reply back (weblite sends "?NODATA&SERIAL=%23<fid>").
+                // Values are appended decoded: Ktor percent-encodes them, so
+                // '#' becomes %23 instead of being mistaken for a fragment.
+                parameters.append(NODATA, "")
                 params.forEach { (name, value) -> parameters.append(name, value) }
             }
         }
@@ -77,6 +83,9 @@ class KtorEmpegApi(
         const val BUTTON_RAW = "BUTTONRAW"
         const val SERIAL = "SERIAL"
         const val NOTIFY_PATH = "/proc/empeg_notify"
+
+        /** Flag that tells the player not to send an HTML reply. */
+        const val NODATA = "NODATA"
         /** Screen image path; see [EmpegApi.SCREEN_PATH]. */
         const val SCREEN_PATH = EmpegApi.SCREEN_PATH
 

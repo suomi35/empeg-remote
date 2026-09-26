@@ -28,8 +28,10 @@ class PlaylistRepository(
 
     /**
      * Fetches the playlist with the given FID (root by default) and maps the
-     * parsed XML items into UI models. On any network/parse failure the
-     * status becomes [PlaylistStatus.ERROR] and the previous list is kept.
+     * parsed XML items into UI models. On a network failure the status becomes
+     * [PlaylistStatus.ERROR] and the previous list is kept; a null result means
+     * the player answered with an empty body (unknown FID), which is reported
+     * as an empty list rather than an error.
      */
     suspend fun fetchPlaylist(fid: String = EmpegApi.ROOT_FID): PlaylistStatus {
         _status.value = PlaylistStatus.LOADING
@@ -37,17 +39,27 @@ class PlaylistRepository(
             api.fetchPlaylist(fid)
         } catch (e: Exception) {
             Timber.e(e, "fetchPlaylist(fid=%s) failed", fid)
-            null
-        }
-
-        if (result == null) {
             _status.value = PlaylistStatus.ERROR
             return _status.value
         }
 
-        _playlist.value = result.items.map { it.toUiModel() }
+        _playlist.value = result?.items?.map { it.toUiModel() } ?: emptyList()
         _status.value = PlaylistStatus.LOADED
         return _status.value
+    }
+
+    /**
+     * Plays the item with the given command FID on the player
+     * (SERIAL "#<fid>").
+     *
+     * @return true when the player accepted the command.
+     */
+    suspend fun play(fid: String): Boolean = try {
+        api.sendSerial(KtorEmpegApi.serialPlay(fid))
+        true
+    } catch (e: Exception) {
+        Timber.e(e, "play(fid=%s) failed", fid)
+        false
     }
 
     private fun EmpegItem.toUiModel(): Playlist {
@@ -56,6 +68,8 @@ class PlaylistRepository(
         // The '#' is URL-encoded as %23, '+' as %2B.
         return Playlist(
             name = title,
+            fid = fid,
+            tagFid = tagFid,
             streamURL = "${KtorEmpegApi.encodePathComponent(title)}.m3u?FID=$tagFid&EXT=.m3u",
             playURL = "?NODATA&SERIAL=" + KtorEmpegApi.encodeSerial(KtorEmpegApi.serialPlay(fid)),
             insertURL = "?NODATA&SERIAL=" + KtorEmpegApi.encodeSerial(KtorEmpegApi.serialInsert(fid)),
