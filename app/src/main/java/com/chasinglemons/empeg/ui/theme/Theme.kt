@@ -11,13 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = EmpegBlue,
+    onPrimary = OnEmpegBlue,
+    primaryContainer = EmpegBlueContainer,
+    onPrimaryContainer = OnEmpegBlueContainer,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
+    primary = EmpegBlue,
+    onPrimary = OnEmpegBlue,
+    primaryContainer = EmpegBlueContainer,
+    onPrimaryContainer = OnEmpegBlueContainer,
     secondary = PurpleGrey40,
     tertiary = Pink40
 
@@ -39,7 +45,7 @@ fun EmpegRemoteTheme(
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val colorScheme = when {
+    val baseScheme = when {
         dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
@@ -48,6 +54,16 @@ fun EmpegRemoteTheme(
         darkTheme -> DarkColorScheme
         else -> LightColorScheme
     }
+
+    // Dynamic color may supply the surfaces, but the accent is always the app's
+    // own blue: a wallpaper-derived primary (#3879FF on the test device) made
+    // playlist headings, the selected tab and buttons look like another app.
+    val colorScheme = baseScheme.copy(
+        primary = EmpegBlue,
+        onPrimary = OnEmpegBlue,
+        primaryContainer = EmpegBlueContainer,
+        onPrimaryContainer = OnEmpegBlueContainer
+    )
 
     MaterialTheme(
         colorScheme = colorScheme,
