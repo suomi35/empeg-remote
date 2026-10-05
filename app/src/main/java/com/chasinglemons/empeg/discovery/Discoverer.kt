@@ -7,6 +7,7 @@ import java.net.DatagramPacket
 import java.net.DatagramSocket
 import java.net.InetAddress
 import java.net.InetSocketAddress
+import java.net.NetworkInterface
 import java.net.SocketTimeoutException
 import timber.log.Timber
 
@@ -54,18 +55,41 @@ class Discoverer internal constructor(
      * Send a broadcast UDP packet containing a request for empegs to
      * announce themselves.
      *
-     * @throws IOException
+     * The probe goes to 255.255.255.255 *and* to the directed broadcast
+     * address of every up local interface (e.g. 192.168.1.255). Hosts with
+     * more than one interface on the same network (VPN + Wi-Fi, USB
+     * ethernet alongside Wi-Fi, ...) are known to silently drop one form or
+     * the other, so sending both keeps discovery working. A failure on one
+     * target is logged and never stops the remaining sends.
      */
-    @Throws(IOException::class)
     private fun sendDiscoveryRequest(socket: DatagramSocket) {
         val data = "?"
-        Timber.d(">>> sendDiscoveryRequest() Sending data $data")
-        val packet = DatagramPacket(
-            data.toByteArray(), data.length,
-            InetAddress.getByName("255.255.255.255"),
-            DISCOVERY_PORT
-        )
-        socket.send(packet)
+        val bytes = data.toByteArray()
+        for (target in probeTargets()) {
+            try {
+                socket.send(DatagramPacket(bytes, bytes.size, target, DISCOVERY_PORT))
+                Timber.d(">>> sendDiscoveryRequest() sent '$data' to $target")
+            } catch (e: IOException) {
+                Timber.w(">>> sendDiscoveryRequest() probe to $target failed: ${e.message}")
+            }
+        }
+    }
+
+    /** 255.255.255.255 plus the directed broadcast of every up, non-loopback interface. */
+    private fun probeTargets(): List<InetAddress> {
+        val targets = LinkedHashSet<InetAddress>()
+        targets += InetAddress.getByName("255.255.255.255")
+        try {
+            NetworkInterface.getNetworkInterfaces()?.toList().orEmpty()
+                .filter { it.isUp && !it.isLoopback }
+                .flatMap { it.interfaceAddresses }
+                .mapNotNull { it.broadcast }
+                .forEach { targets += it }
+        } catch (e: IOException) {
+            Timber.w(">>> probeTargets() could not enumerate interfaces: ${e.message}")
+        }
+        Timber.d(">>> probeTargets() $targets")
+        return targets.toList()
     }
 
     /**
@@ -98,7 +122,9 @@ class Discoverer internal constructor(
                             .socketAddress as InetSocketAddress).address
                     )
                 }
-                if (server != null) servers.add(server)
+                // Beacons and multi-target probes can surface the same player
+                // several times per search; show each one only once.
+                if (server != null && servers.none { it.ip == server.ip }) servers.add(server)
             }
         } catch (e: SocketTimeoutException) {
             Timber.e(">>> Receive timed out: ${e.message}")

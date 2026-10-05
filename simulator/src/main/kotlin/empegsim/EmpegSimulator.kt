@@ -661,11 +661,18 @@ class DiscoveryResponder(
                 socket.broadcast = true
                 socket.reuseAddress = true
                 println("[udp] discovery responder on $bindAddress:$port")
+                startBeacon(socket)
                 val buf = ByteArray(1024)
                 while (true) {
                     val packet = DatagramPacket(buf, buf.size)
                     socket.receive(packet)
                     val received = String(packet.data, 0, packet.length)
+                    if (received.trim().startsWith("name=")) {
+                        // An announcement, not a probe - either our own beacon
+                        // echoing back or another simulator's. Answering it
+                        // would create an endless announcement ping-pong.
+                        continue
+                    }
                     println("[udp] packet from ${packet.address.hostAddress}:${packet.port}: '${received.trim()}'")
                     if (received.isNotBlank()) {
                         // Reply to any probe (the app sends "?"); replying to
@@ -682,6 +689,68 @@ class DiscoveryResponder(
                 println("[udp] discovery responder stopped: $e")
             }
         }.apply { isDaemon = true; start() }
+    }
+
+    /**
+     * Unsolicited discovery announcements, every [BEACON_INTERVAL_MS] ms.
+     *
+     * The app only listens for `discoveryTimeout` (2s by default) after each
+     * Search tap, so a periodic beacon is enough for it to find us even when
+     * its own probe never arrives. That happens on hosts where broadcasts
+     * crossing the receive path are silently dropped - classically a Mac
+     * with two interfaces on the same subnet (Wi-Fi + USB ethernet), where
+     * macOS discards broadcasts on the non-default interface with no log
+     * line and no counter. Replying to probes alone cannot recover from
+     * that; only an unsolicited announcement can.
+     *
+     * Beacons go to 255.255.255.255 and to every local directed broadcast
+     * (e.g. 192.168.107.255): limited broadcast may raise "no route to
+     * host" on a multi-homed sender, while the directed form has an explicit
+     * per-interface route. Failures are logged once and otherwise ignored.
+     */
+    private fun startBeacon(socket: DatagramSocket) {
+        val payload = "name=$name port=$httpPort".toByteArray()
+        Thread {
+            var warned = false
+            while (true) {
+                for (target in beaconTargets()) {
+                    try {
+                        socket.send(DatagramPacket(payload, payload.size, target, port))
+                        warned = false
+                    } catch (e: Exception) {
+                        if (!warned) {
+                            println("[udp] beacon to $target failed: ${e.message} (further beacon errors suppressed)")
+                            warned = true
+                        }
+                    }
+                }
+                Thread.sleep(BEACON_INTERVAL_MS)
+            }
+        }.apply {
+            isDaemon = true
+            name = "empegsim-discovery-beacon"
+            start()
+        }
+        println("[udp] beaconing discovery announcements every ${BEACON_INTERVAL_MS}ms to ${beaconTargets()}")
+    }
+
+    /** Limited broadcast plus the directed broadcast of every up, non-virtual interface. */
+    private fun beaconTargets(): List<java.net.InetAddress> {
+        val targets = linkedSetOf<java.net.InetAddress>()
+        runCatching { targets += java.net.InetAddress.getByName("255.255.255.255") }
+        runCatching {
+            java.net.NetworkInterface.getNetworkInterfaces().toList()
+                .filter { it.isUp && !it.isLoopback && !it.isVirtual && !it.name.matches(VIRTUAL_IFACE) }
+                .flatMap { it.interfaceAddresses }
+                .mapNotNull { it.broadcast }
+                .forEach { targets += it }
+        }
+        return targets.toList()
+    }
+
+    companion object {
+        /** Well under the app's default 2s discovery timeout, so a Search always catches one. */
+        private const val BEACON_INTERVAL_MS = 750L
     }
 }
 
