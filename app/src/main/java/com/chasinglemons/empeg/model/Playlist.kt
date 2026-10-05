@@ -10,7 +10,7 @@ class Playlist(
     val appendURL: String,
     val url: String,
     val length: String,
-    val type: String,
+    val type: PlaylistType,
     val artist: String,
     val source: String
 )

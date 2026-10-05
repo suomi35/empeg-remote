@@ -9,11 +9,11 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.chasinglemons.empegremote"
+        applicationId = "com.chasinglemons.empeg"
         minSdk = 23
         targetSdk = 36
         versionCode = 7
-        versionName = "2.0.0hj"
+        versionName = "2.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -36,6 +36,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -64,7 +65,6 @@ dependencies {
     implementation(libs.androidx.material3.window.size.class1.android)
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
-    implementation(libs.ktor.client.okhttp)
 
 //    implementation(libs.okhttp)
 

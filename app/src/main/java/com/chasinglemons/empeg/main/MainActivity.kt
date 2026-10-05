@@ -10,8 +10,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.chasinglemons.empeg.discovery.DiscoveryScreen
-import com.chasinglemons.empeg.discovery.DiscoveryViewModel
+import com.chasinglemons.empeg.connect.ConnectScreen
+import com.chasinglemons.empeg.connect.ConnectViewModel
 import com.chasinglemons.empeg.navigation.Screen
 import com.chasinglemons.empeg.remote.PrimaryScreen
 import com.chasinglemons.empeg.remote.PrimaryScreenViewModel
@@ -26,16 +26,11 @@ class MainActivity : KoinComponent, ComponentActivity() {
 
         val viewModel: MainViewModel by inject()
 
-        val from = intent.getStringExtra("from")
-        println(">>> EmpegActivity: from = $from")
-
         val startDestination =
-            if (viewModel.isEmpegConfigured()) {
-                println(">>> navigating to REMOTE...")
+            if (viewModel.getEmpegIp().isNotEmpty()) {
                 Screen.Primary.route
             } else {
-                println(">>> no player in prefs, navigating to DISCOVERY...")
-                Screen.Discovery.route
+                Screen.Connect.route
             }
 
         enableEdgeToEdge()
@@ -48,14 +43,15 @@ class MainActivity : KoinComponent, ComponentActivity() {
                     navController = navController,
                     startDestination = startDestination
                 ) {
-                    composable(Screen.Discovery.route) {
-                        val discoveryViewModel: DiscoveryViewModel = viewModel(
-                            factory = DiscoveryViewModel.Factory
+                    composable(Screen.Connect.route) {
+                        val connectViewModel: ConnectViewModel = viewModel(
+                            factory = ConnectViewModel.Factory
                         )
 
-                        DiscoveryScreen(
+                        ConnectScreen(
                             navController = navController,
-                            viewModel = discoveryViewModel
+                            viewModel = connectViewModel,
+                            empegIp = viewModel.getEmpegIp()
                         )
                     }
 
@@ -72,17 +68,6 @@ class MainActivity : KoinComponent, ComponentActivity() {
                     }
 
                     // composable("playlists")
-
-                    composable(Screen.Settings.route) {
-//                        val settingsViewmodel: SettingsViewModel = viewModel(
-//                            factory = SettingsViewModel.Factory
-//                        )
-//
-//                        SettingsScreen(
-//                            navController = navController,
-//                            viewModel = settingsViewmodel
-//                        )
-                    }
                 }
             }
         }

@@ -1,18 +1,16 @@
 package com.chasinglemons.empeg
 
 import android.app.Application
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import androidx.core.app.NotificationManagerCompat
 import com.chasinglemons.empeg.di.appModule
+import com.chasinglemons.empeg.notification.PlayerNotification
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
-import timber.log.Timber.DebugTree
-import timber.log.Timber.Forest.plant
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
-class EmpegApplication: Application() {
+class EmpegApplication : Application() {
 
     init {
         appInstance = this
@@ -21,9 +19,11 @@ class EmpegApplication: Application() {
     override fun onCreate() {
         super.onCreate()
 
-        plant(DebugTree())
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
-        createNotificationChannel()
+        PlayerNotification.createChannel(this)
 
         startKoin {
             androidContext(this@EmpegApplication)
@@ -31,18 +31,17 @@ class EmpegApplication: Application() {
         }
     }
 
-    private fun createNotificationChannel() {
-//        val manager = NotificationManagerCompat.from(this)
-//        val channel = NotificationChannel(
-//            CHANNEL_ID,
-//            CHANNEL_NAME,
-//            NotificationManager.IMPORTANCE_HIGH
-//        )
-//        manager.createNotificationChannel(channel)
-    }
-
     companion object {
-        val ktorClient = HttpClient(OkHttp)
+        val ktorClient = HttpClient(OkHttp) {
+            engine {
+                config {
+                    connectTimeout(10, TimeUnit.SECONDS)
+                    readTimeout(15, TimeUnit.SECONDS)
+                    writeTimeout(15, TimeUnit.SECONDS)
+                    callTimeout(20, TimeUnit.SECONDS)
+                }
+            }
+        }
 
         lateinit var appInstance: EmpegApplication
     }

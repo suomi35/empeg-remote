@@ -8,28 +8,43 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.input.key.type
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.chasinglemons.empeg.R
 import com.chasinglemons.empeg.ui.components.ColorPickerDialog
 import com.chasinglemons.empeg.ui.components.EmpegDisplay
-import com.chasinglemons.empeg.ui.components.LoadingAnimation
 import com.chasinglemons.empeg.ui.theme.EmpegRemoteTheme
+import com.chasinglemons.empeg.util.Constants
+import com.chasinglemons.empeg.util.Utils
 
 
 @Composable
@@ -38,18 +53,27 @@ fun RemoteScreen(
     viewModel: RemoteScreenViewModel = viewModel(),
     empegIp: String,
     buttonPress: (String) -> Unit,
+    lensColor: Color,
+    updateLensColor: (Color) -> Unit,
+    screenRefreshRate: Int,
+    useKeyboard: Boolean,
+    showDisplay: Boolean = true
 ) {
-    val lensColor = viewModel.lensColor.collectAsStateWithLifecycle()
+    val showKeyboard by viewModel.showKeyboard.collectAsStateWithLifecycle()
     var showColorPickerDialog by remember { mutableStateOf(false) }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val focusRequester = remember { FocusRequester() }
+    var internalTextValue by remember { mutableStateOf("") } // This will receive IME text
 
     if (showColorPickerDialog) {
         ColorPickerDialog(
-            initialColor = lensColor.value,
+            initialColor = lensColor,
             onChoice = {
                 showColorPickerDialog = false
-                viewModel.updateLensColor(it)
+                updateLensColor(it)
             },
-            onDismissRequest = { showColorPickerDialog = false }
+            onDismiss = { showColorPickerDialog = false }
         )
     }
 
@@ -63,17 +87,51 @@ fun RemoteScreen(
                         )
                     )
                 )
+//                .focusable()
+//                .focusRequester(focusRequester)
+//                .onFocusChanged { focusState ->
+//                    isFocusTargetFocused = focusState.isFocused
+//                    println("Focus changed on Box: isFocused = ${focusState.isFocused}")
+//                    if (!focusState.isFocused) {
+//                        // Optional: Hide keyboard if the box loses focus and you want that behavior
+//                        // keyboardController?.hide()
+//                    }
+//                }
+//                .onKeyEvent {
+//                    if (it.type == KeyEventType.KeyUp) {
+//                        println(">>> KEY: ${it.key}") //Key.Enter
+//                        true // Indicate that the event is handled
+//                    } else {
+//                        false
+//                    }
+//                }
             ) {
                 Column(
                     modifier = modifier
                         .fillMaxSize()
                 ) {
-                    EmpegDisplay(
-                        empegIp = empegIp,
-                        displayColor = lensColor.value,
-                        refreshDelay = 100,
-                        onClick = { showColorPickerDialog = true }
-                    )
+                    if (showDisplay) {
+                        EmpegDisplay(
+                            empegIp = empegIp,
+                            displayColor = lensColor,
+                            refreshDelay = screenRefreshRate.toLong(),
+                            onClick = { showColorPickerDialog = true }
+                        )
+                    }
+
+
+
+//                    TextField(
+//                        modifier = Modifier
+//                            .focusRequester(focusRequester)
+//                            .size(1.dp),
+//                        placeholder = {
+//                            Text(stringResource(R.string.search_placeholder))
+//                        },
+//                        singleLine = true,
+//                        value = internalTextValue,
+//                        onValueChange = { internalTextValue = it },
+//                    )
 
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(4),
@@ -96,8 +154,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("One") },
-                                        onLongClick = { buttonPress("One.L") }
+                                        onClick = { buttonPress(Constants.ONE) },
+                                        onLongClick = { buttonPress(Constants.ONE_LONG) }
                                     )
                             )
                         }
@@ -111,8 +169,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Two") },
-                                        onLongClick = { buttonPress("Two.L") }
+                                        onClick = { buttonPress(Constants.TWO) },
+                                        onLongClick = { buttonPress(Constants.TWO_LONG) }
                                     )
                             )
                         }
@@ -126,8 +184,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Three") },
-                                        onLongClick = { buttonPress("Three.L") }
+                                        onClick = { buttonPress(Constants.THREE) },
+                                        onLongClick = { buttonPress(Constants.THREE_LONG) }
                                     )
                             )
                         }
@@ -141,8 +199,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Source") },
-                                        onLongClick = { buttonPress("Source.L") }
+                                        onClick = { buttonPress(Constants.SOURCE) },
+                                        onLongClick = { buttonPress(Constants.SOURCE_LONG) }
                                     )
                             )
                         }
@@ -156,8 +214,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Four") },
-                                        onLongClick = { buttonPress("Four.L") }
+                                        onClick = { buttonPress(Constants.FOUR) },
+                                        onLongClick = { buttonPress(Constants.FOUR_LONG) }
                                     )
                             )
                         }
@@ -171,8 +229,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Five") },
-                                        onLongClick = { buttonPress("Five.L") }
+                                        onClick = { buttonPress(Constants.FIVE) },
+                                        onLongClick = { buttonPress(Constants.FIVE_LONG) }
                                     )
                             )
                         }
@@ -186,8 +244,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Six") },
-                                        onLongClick = { buttonPress("Six.L") }
+                                        onClick = { buttonPress(Constants.SIX) },
+                                        onLongClick = { buttonPress(Constants.SIX_LONG) }
                                     )
                             )
                         }
@@ -201,8 +259,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Tuner") },
-                                        onLongClick = { buttonPress("Tuner.L") }
+                                        onClick = { buttonPress(Constants.TUNER) },
+                                        onLongClick = { buttonPress(Constants.TUNER_LONG) }
                                     )
                             )
                         }
@@ -216,8 +274,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Seven") },
-                                        onLongClick = { buttonPress("Seven.L") }
+                                        onClick = { buttonPress(Constants.SEVEN) },
+                                        onLongClick = { buttonPress(Constants.SEVEN_LONG) }
                                     )
                             )
                         }
@@ -231,8 +289,8 @@ fun RemoteScreen(
                                     .fillMaxWidth()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Eight") },
-                                        onLongClick = { buttonPress("Eight.L") }
+                                        onClick = { buttonPress(Constants.EIGHT) },
+                                        onLongClick = { buttonPress(Constants.EIGHT_LONG) }
                                     )
                             )
                         }
@@ -246,8 +304,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Nine") },
-                                        onLongClick = { buttonPress("Nine.L") }
+                                        onClick = { buttonPress(Constants.NINE) },
+                                        onLongClick = { buttonPress(Constants.NINE_LONG) }
                                     )
                             )
                         }
@@ -261,8 +319,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("SelectMode") },
-                                        onLongClick = { buttonPress("HijackMenu") }
+                                        onClick = { buttonPress(Constants.SELECT_MODE) },
+                                        onLongClick = { buttonPress(Constants.HIJACK_MENU) }
                                     )
                             )
                         }
@@ -276,8 +334,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Cancel") },
-                                        onLongClick = { buttonPress("Cancel.L") }
+                                        onClick = { buttonPress(Constants.CANCEL) },
+                                        onLongClick = { buttonPress(Constants.CANCEL_LONG) }
                                     )
                             )
                         }
@@ -291,8 +349,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Zero") },
-                                        onLongClick = { buttonPress("Zero.L") }
+                                        onClick = { buttonPress(Constants.ZERO) },
+                                        onLongClick = { buttonPress(Constants.ZERO_LONG) }
                                     )
                             )
                         }
@@ -306,8 +364,13 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Search") },
-                                        onLongClick = { buttonPress("Search.L") }
+                                        onClick = {
+                                            buttonPress(Constants.SEARCH)
+                                            if (useKeyboard) {
+                                                viewModel.showKeyboard(true)
+                                            }
+                                        },
+                                        onLongClick = { buttonPress(Constants.SEARCH_LONG) }
                                     )
                             )
                         }
@@ -321,8 +384,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Sound") },
-                                        onLongClick = { buttonPress("Sound.L") }
+                                        onClick = { buttonPress(Constants.SOUND) },
+                                        onLongClick = { buttonPress(Constants.SOUND_LONG) }
                                     )
                             )
                         }
@@ -336,8 +399,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("PrevTrack") },
-                                        onLongClick = { buttonPress("PrevTrack.L") }
+                                        onClick = { buttonPress(Constants.PREV_TRACK) },
+                                        onLongClick = { buttonPress(Constants.PREV_TRACK_LONG) }
                                     )
                             )
                         }
@@ -351,8 +414,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("NextTrack") },
-                                        onLongClick = { buttonPress("NextTrack.L") }
+                                        onClick = { buttonPress(Constants.NEXT_TRACK) },
+                                        onLongClick = { buttonPress(Constants.NEXT_TRACK_LONG) }
                                     )
                             )
                         }
@@ -366,8 +429,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Menu") },
-                                        onLongClick = { buttonPress("Menu.L") }
+                                        onClick = { buttonPress(Constants.MENU) },
+                                        onLongClick = { buttonPress(Constants.MENU_LONG) }
                                     )
                             )
                         }
@@ -381,8 +444,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("VolUp") },
-                                        onLongClick = { buttonPress("VolUp.L") }
+                                        onClick = { buttonPress(Constants.VOL_UP) },
+                                        onLongClick = { buttonPress(Constants.VOL_UP_LONG) }
                                     )
                             )
                         }
@@ -396,8 +459,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Info") },
-                                        onLongClick = { buttonPress("Info.L") }
+                                        onClick = { buttonPress(Constants.INFO) },
+                                        onLongClick = { buttonPress(Constants.INFO_LONG) }
                                     )
                             )
                         }
@@ -411,8 +474,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Visual") },
-                                        onLongClick = { buttonPress("Visual.L") }
+                                        onClick = { buttonPress(Constants.VISUAL) },
+                                        onLongClick = { buttonPress(Constants.VISUAL_LONG) }
                                     )
                             )
                         }
@@ -426,8 +489,8 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("Play") },
-                                        onLongClick = { buttonPress("Play.L") }
+                                        onClick = { buttonPress(Constants.PLAY) },
+                                        onLongClick = { buttonPress(Constants.PLAY_LONG) }
                                     )
                             )
                         }
@@ -441,18 +504,64 @@ fun RemoteScreen(
                                     .fillMaxSize()
                                     .padding(itemPadding)
                                     .combinedClickable(
-                                        onClick = { buttonPress("VolDown") },
-                                        onLongClick = { buttonPress("VolDown.L") }
+                                        onClick = { buttonPress(Constants.VOL_DOWN) },
+                                        onLongClick = { buttonPress(Constants.VOL_DOWN_LONG) }
                                     )
                             )
                         }
                     }
                 }
 
-            // TODO: Fix for mlord's mention of "Add workaround for Empeg Remote Android app: it sends wrong codes for NextTrack and PrevTrack."
-                // looks like the mistake was sending Next and Prev instead of NextTrack and PrevTrack :shrug:
-
+                // Visually Hidden BasicTextField
+                BasicTextField(
+                    value = internalTextValue,
+                    onValueChange = { newValue ->
+                        val added = if (newValue.length > internalTextValue.length) {
+                            newValue.substring(internalTextValue.length)
+                        } else {
+                            newValue
+                        }
+                        val lastChar = added.lastOrNull()?.toString().orEmpty()
+                        val buttonCode = Utils.translateKeyToButton(lastChar)
+                        if (buttonCode.isNotEmpty()) {
+                            buttonPress(buttonCode)
+                        }
+                        internalTextValue = ""
+                    },
+                    modifier = Modifier
+                        .size(1.dp)
+                        .focusRequester(focusRequester)
+                        .onKeyEvent { keyEvent ->
+                            if (keyEvent.type == KeyEventType.KeyUp) {
+                                val buttonCode = Utils.translateSpecialKeyToButton(keyEvent.key)
+                                if (buttonCode.isNotEmpty()) {
+                                    buttonPress(buttonCode)
+                                }
+                                true
+                            } else {
+                                false
+                            }
+                                    },
+                    textStyle = TextStyle(color = Color.Transparent, fontSize = 1.sp), // Make text invisible
+                    cursorBrush = SolidColor(Color.Transparent), // Hide cursor
+//                        keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                viewModel.showKeyboard(false)
+                                keyboardController?.hide()
+                            }
+                        ),
+                        decorationBox = { innerTextField ->
+                            // No decoration to keep it minimal
+                            innerTextField()
+                        }
+                )
             }
+    LaunchedEffect(showKeyboard) {
+        if (showKeyboard == true) {
+            focusRequester.requestFocus()
+        }
+    }
 }
 
 @Preview
@@ -461,7 +570,11 @@ fun RemoteScreenPreview() {
     EmpegRemoteTheme {
         RemoteScreen(
             empegIp = "192.168.1.56",
-            buttonPress = { }
+            buttonPress = { },
+            lensColor = Color.Red,
+            updateLensColor = { },
+            screenRefreshRate = 100,
+            useKeyboard = true,
         )
     }
 }

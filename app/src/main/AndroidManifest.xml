@@ -7,6 +7,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:name=".EmpegApplication"
@@ -15,6 +18,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.EmpegRemote"
+        android:enableOnBackInvokedCallback="true"
         tools:targetApi="24">
         <activity
             android:name=".main.MainActivity"
@@ -24,31 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<!--        <activity-->
-<!--            android:name=".PhoneMain"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:screenOrientation="portrait"-->
-<!--            android:theme="@style/ShortenActionbar"></activity>-->
-<!--        <activity-->
-<!--            android:name=".TabletMain"-->
-<!--            android:label="@string/app_name"-->
-<!--            android:screenOrientation="landscape"></activity>-->
-<!--        <activity-->
-<!--            android:name=".WidgetShowcase"-->
-<!--            android:label="Empeg widgets"-->
-<!--            android:screenOrientation="portrait"></activity>-->
-<!--        <activity-->
-<!--            android:name=".Settings"-->
-<!--            android:label="Settings"></activity>-->
-<!--        <activity-->
-<!--            android:name=".AddEmpeg"-->
-<!--            android:icon="@drawable/player"-->
-<!--            android:label="Choose player"></activity>-->
-<!--        <activity-->
-<!--            android:name=".LicensePopUp"-->
-<!--            android:icon="@drawable/player"-->
-<!--            android:label="Invalid License"-->
-<!--            android:theme="@android:style/Theme.Dialog"></activity>-->
 
 <!--        <service android:name=".NotificationService" />-->
 

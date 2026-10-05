@@ -11,4 +11,8 @@ class MainViewModel: ViewModel(), KoinComponent {
     fun isEmpegConfigured(): Boolean {
         return preferences.empegIp.isNotEmpty()
     }
+
+    fun getEmpegIp(): String {
+        return preferences.empegIp
+    }
 }

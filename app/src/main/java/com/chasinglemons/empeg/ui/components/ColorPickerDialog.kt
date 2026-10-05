@@ -45,7 +45,7 @@ import com.chasinglemons.empeg.util.Utils
 fun ColorPickerDialog(
     initialColor: Color,
     onChoice: (Color) -> Unit,
-    onDismissRequest: () -> Unit
+    onDismiss: () -> Unit
 ) {
     val standardLensColors = arrayOf(
         Color(0xFF00BFFF),
@@ -57,7 +57,7 @@ fun ColorPickerDialog(
     var selectedColor by remember(initialColor) { mutableStateOf(initialColor) }
 
     BasicAlertDialog(
-        onDismissRequest = { onDismissRequest() }
+        onDismissRequest = { onDismiss() }
     ) {
         Surface(
             shape = AlertDialogDefaults.shape,

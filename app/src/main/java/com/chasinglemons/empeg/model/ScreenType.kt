@@ -1,6 +1,6 @@
 package com.chasinglemons.empeg.model
 
 sealed class ScreenType {
-    object RemoteScreen: ScreenType()
-    object PlaylistScreen: ScreenType()
+    data object RemoteScreen: ScreenType()
+    data object PlaylistScreen: ScreenType()
 }

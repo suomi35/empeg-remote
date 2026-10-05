@@ -6,6 +6,9 @@
     <string name="description_discovery_back_icon">Go back icon</string>
     <string name="description_show_settings_icon">Show settings icon</string>
     <string name="description_empeg_display">Empeg display</string>
+    <string name="description_empeg_fascia">Empeg fascia</string>
+    <string name="description_playlist_play_button">playlist play button</string>
+    <string name="description_playlist_overflow_button">playlist overflow button</string>
 
     <string name="desc_remote_button_a1">remote button a1</string>
     <string name="desc_remote_button_a2">remote button a2</string>
